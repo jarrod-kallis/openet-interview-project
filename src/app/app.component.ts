@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
+
+import { MenuItem } from "./shared/constants";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  title = 'interview-project';
+  private selectedMenuItem: MenuItem = MenuItem.Home;
+
+  onNavigatedTo(selectedMenuItem: MenuItem) {
+    this.selectedMenuItem = selectedMenuItem;
+  }
+
+  get menuItemEnum() {
+    return MenuItem;
+  }
 }
