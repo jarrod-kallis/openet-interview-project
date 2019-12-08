@@ -15,6 +15,8 @@ import { AddButtonComponent } from './shared/components/buttons/add-button/add-b
 import { MenuDropDownDirective } from './shared/directives/menu-drop-down.directive';
 import { MenuCollapseDirective } from './shared/directives/menu-collapse.directive';
 import { HamburgerButtonComponent } from './header/hamburger-button/hamburger-button.component';
+import { AssignListComponent } from './shared/components/list/assign-list/assign-list.component';
+import { PersonDetailComponent } from './shared/components/person-detail/person-detail.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { HamburgerButtonComponent } from './header/hamburger-button/hamburger-bu
     AddButtonComponent,
     MenuDropDownDirective,
     MenuCollapseDirective,
-    HamburgerButtonComponent
+    HamburgerButtonComponent,
+    AssignListComponent,
+    PersonDetailComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [StudentService, ProfessorService],

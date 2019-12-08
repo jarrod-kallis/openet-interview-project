@@ -7,7 +7,6 @@ import { ProfessorService } from "src/app/shared/services/professor.service";
   selector: "app-professor-list",
   templateUrl: "./professor-list.component.html",
   styleUrls: ["./professor-list.component.css"]
-  //  providers: [ProfessorService]
 })
 export class ProfessorListComponent implements OnInit {
   professors: Professor[] = [];
@@ -30,8 +29,6 @@ export class ProfessorListComponent implements OnInit {
 
   onUpdateClick(professor: Professor) {
     this.selectedProfessor = professor.clone();
-
-    console.log(this.selectedProfessor === professor);
 
     this.updating = true;
   }

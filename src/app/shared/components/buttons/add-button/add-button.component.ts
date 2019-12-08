@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 
 @Component({
   selector: "app-add-button",
@@ -6,9 +6,5 @@ import { Component, Input } from "@angular/core";
   styleUrls: ["./add-button.component.css"]
 })
 export class AddButtonComponent {
-  @Input() caption: string;
-
-  constructor() {
-    this.caption = "Add";
-  }
+  constructor() {}
 }

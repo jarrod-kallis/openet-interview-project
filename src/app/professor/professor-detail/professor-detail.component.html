@@ -1,88 +1,30 @@
 <div class="row">
   <div class="col-sm-6">
-    <h3>Professor</h3>
-    <form>
-      <div class="row">
-        <div class="col-sm-10 form-group">
-          <label for="firstName">First Name</label>
-          <input
-            type="text"
-            id="firstName"
-            name="firstName"
-            class="form-control"
-            [ngModel]="professor.firstName"
-            #firstNameInput
-          />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-10 form-group">
-          <label for="lastName">Last Name</label>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            class="form-control"
-            [ngModel]="professor.lastName"
-            #lastNameInput
-          />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 btn-toolbar">
-          <button class="btn btn-success" type="button" (click)="onSaveClick()">
-            Save
-          </button>
-          <button
-            class="btn btn-warning"
-            type="button"
-            (click)="onCancelClick()"
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    </form>
+    <app-person-detail
+      [heading]="'Professor'"
+      [person]="professor"
+      (onSave)="onSaveClick($event)"
+      (onCancel)="onCancelClick()"
+    ></app-person-detail>
   </div>
   <div class="col-sm-6">
     <h3>Students</h3>
-    <!-- Template to show nothing to display in the list-->
-    <ng-template #noStudents>
-      <p>No students</p>
-    </ng-template>
-
     <div class="col-xs-6">
       <div class="form-group">
-        <label for="firstName">Available</label>
-        <ul
-          class="list-group"
-          *ngIf="availableStudents.length > 0; else noStudents"
-        >
-          <li
-            class="list-group-item"
-            *ngFor="let student of availableStudents"
-            (click)="onAvailableStudentClick(student)"
-          >
-            {{ student.firstName }} {{ student.lastName }}
-          </li>
-        </ul>
+        <app-assign-list
+          [heading]="'Available'"
+          [people]="availableStudents"
+          (onClick)="onAvailableStudentClick($event)"
+        ></app-assign-list>
       </div>
     </div>
     <div class="col-xs-6">
       <div class="form-group">
-        <label for="firstName">Assigned</label>
-        <ul
-          class="list-group"
-          *ngIf="assignedStudents.length > 0; else noStudents"
-        >
-          <li
-            class="list-group-item"
-            *ngFor="let student of assignedStudents"
-            (click)="onAssignedStudentClick(student)"
-          >
-            {{ student.firstName }} {{ student.lastName }}
-          </li>
-        </ul>
+        <app-assign-list
+          [heading]="'Assigned'"
+          [people]="assignedStudents"
+          (onClick)="onAssignedStudentClick($event)"
+        ></app-assign-list>
       </div>
     </div>
   </div>

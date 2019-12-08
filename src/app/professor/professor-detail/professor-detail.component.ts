@@ -2,8 +2,6 @@ import {
   Component,
   OnInit,
   Input,
-  ViewChild,
-  ElementRef,
   OnChanges,
   Output,
   EventEmitter
@@ -13,6 +11,7 @@ import { Professor } from "../professor.model";
 import { ProfessorService } from "../../shared/services/professor.service";
 import { StudentService } from "../../shared/services/student.service";
 import { Student } from "../../student/student.model";
+import { Person } from "../../shared/models/person.model";
 
 @Component({
   selector: "app-professor-detail",
@@ -25,9 +24,6 @@ export class ProfessorDetailComponent implements OnInit, OnChanges {
   assignedStudents: Student[] = [];
   availableStudents: Student[] = [];
 
-  @ViewChild("firstNameInput", { static: false }) firstNameInputRef: ElementRef;
-  @ViewChild("lastNameInput", { static: false }) lastNameInputRef: ElementRef;
-
   @Output() onCancelClicked: EventEmitter<null> = new EventEmitter<null>();
 
   constructor(
@@ -38,21 +34,17 @@ export class ProfessorDetailComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges() {
-    // console.log("onChanges()");
     this.allStudents = this.studentService.getStudents();
 
     this.handleStudents();
-
-    // console.log(this.assignedStudents);
-    // console.log(this.availableStudents);
   }
 
-  onSaveClick() {
+  onSaveClick(person: Person) {
     this.professorService.save(
       new Professor(
-        this.professor.id,
-        this.firstNameInputRef.nativeElement.value,
-        this.lastNameInputRef.nativeElement.value,
+        person.id,
+        person.firstName,
+        person.lastName,
         this.professor.students
       )
     );
