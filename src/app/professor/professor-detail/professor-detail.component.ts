@@ -40,14 +40,7 @@ export class ProfessorDetailComponent implements OnInit, OnChanges {
   }
 
   onSaveClick(person: Person) {
-    this.professorService.save(
-      new Professor(
-        person.id,
-        person.firstName,
-        person.lastName,
-        this.professor.students
-      )
-    );
+    this.professorService.save(person as Professor);
   }
 
   onCancelClick() {

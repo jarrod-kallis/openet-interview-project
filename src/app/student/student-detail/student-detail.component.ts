@@ -32,14 +32,7 @@ export class StudentDetailComponent implements OnInit {
   }
 
   onSaveClick(person: Person) {
-    this.studentService.save(
-      new Student(
-        person.id,
-        person.firstName,
-        person.lastName,
-        this.student.professors
-      )
-    );
+    this.studentService.save(person as Student);
   }
 
   onCancelClick() {

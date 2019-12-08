@@ -42,11 +42,11 @@ export class StudentService {
 
     if (students.length > 0) {
       // Update
-      this.students = this.students.map(professor => {
-        if (professor.id === studentToUpdate.id) {
+      this.students = this.students.map(student => {
+        if (student.id === studentToUpdate.id) {
           return studentToUpdate;
         } else {
-          return professor;
+          return student;
         }
       });
     } else {

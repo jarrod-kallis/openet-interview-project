@@ -30,13 +30,16 @@ export class PersonDetailComponent implements OnInit {
   ngOnInit() {}
 
   onSaveClick() {
-    const person: Person = new Person(
-      this.person.id,
-      this.firstNameInputRef.nativeElement.value,
-      this.lastNameInputRef.nativeElement.value
-    );
+    // const person: Person = new Person(
+    //   this.person.id,
+    //   this.firstNameInputRef.nativeElement.value,
+    //   this.lastNameInputRef.nativeElement.value
+    // );
 
-    this.onSave.emit(person);
+    this.person.firstName = this.firstNameInputRef.nativeElement.value;
+    this.person.lastName = this.lastNameInputRef.nativeElement.value;
+
+    this.onSave.emit(this.person);
   }
 
   onCancelClick() {
