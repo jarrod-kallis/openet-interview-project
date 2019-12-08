@@ -10,6 +10,11 @@ import { ProfessorListComponent } from "./professor/professor-list/professor-lis
 import { StudentListComponent } from "./student/student-list/student-list.component";
 import { ProfessorDetailComponent } from "./professor/professor-detail/professor-detail.component";
 import { StudentService } from "./shared/services/student.service";
+import { ProfessorService } from "./shared/services/professor.service";
+import { AddButtonComponent } from './shared/components/buttons/add-button/add-button.component';
+import { MenuDropDownDirective } from './shared/directives/menu-drop-down.directive';
+import { MenuCollapseDirective } from './shared/directives/menu-collapse.directive';
+import { HamburgerButtonComponent } from './header/hamburger-button/hamburger-button.component';
 
 @NgModule({
   declarations: [
@@ -18,10 +23,14 @@ import { StudentService } from "./shared/services/student.service";
     HomeComponent,
     ProfessorListComponent,
     StudentListComponent,
-    ProfessorDetailComponent
+    ProfessorDetailComponent,
+    AddButtonComponent,
+    MenuDropDownDirective,
+    MenuCollapseDirective,
+    HamburgerButtonComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
-  providers: [StudentService],
+  providers: [StudentService, ProfessorService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

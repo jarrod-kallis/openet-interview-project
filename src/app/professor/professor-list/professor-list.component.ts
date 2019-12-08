@@ -6,13 +6,13 @@ import { ProfessorService } from "src/app/shared/services/professor.service";
 @Component({
   selector: "app-professor-list",
   templateUrl: "./professor-list.component.html",
-  styleUrls: ["./professor-list.component.css"],
-  providers: [ProfessorService]
+  styleUrls: ["./professor-list.component.css"]
+  //  providers: [ProfessorService]
 })
 export class ProfessorListComponent implements OnInit {
-  @Input() professors: Professor[] = [];
-  @Input() updating: boolean = false;
-  @Input() selectedProfessor: Professor = null;
+  professors: Professor[] = [];
+  updating: boolean = false;
+  selectedProfessor: Professor = null;
 
   constructor(private professorService: ProfessorService) {}
 
@@ -29,7 +29,10 @@ export class ProfessorListComponent implements OnInit {
   }
 
   onUpdateClick(professor: Professor) {
-    this.selectedProfessor = professor;
+    this.selectedProfessor = professor.clone();
+
+    console.log(this.selectedProfessor === professor);
+
     this.updating = true;
   }
 

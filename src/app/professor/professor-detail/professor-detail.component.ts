@@ -21,9 +21,9 @@ import { Student } from "../../student/student.model";
 })
 export class ProfessorDetailComponent implements OnInit, OnChanges {
   @Input() professor: Professor;
-  @Input() assignedStudents: Student[];
-  @Input() allStudents: Student[];
-  @Input() availableStudents: Student[];
+  allStudents: Student[] = [];
+  assignedStudents: Student[] = [];
+  availableStudents: Student[] = [];
 
   @ViewChild("firstNameInput", { static: false }) firstNameInputRef: ElementRef;
   @ViewChild("lastNameInput", { static: false }) lastNameInputRef: ElementRef;
@@ -75,12 +75,15 @@ export class ProfessorDetailComponent implements OnInit, OnChanges {
   }
 
   handleStudents() {
-    this.assignedStudents = this.allStudents.filter(
-      student => this.professor.students.indexOf(student.id) > -1
-    );
+    this.assignedStudents = [];
+    this.availableStudents = [];
 
-    this.availableStudents = this.allStudents.filter(
-      student => this.professor.students.indexOf(student.id) < 0
-    );
+    this.allStudents.filter(student => {
+      if (this.professor.students.indexOf(student.id) > -1) {
+        this.assignedStudents.push(student);
+      } else {
+        this.availableStudents.push(student);
+      }
+    });
   }
 }

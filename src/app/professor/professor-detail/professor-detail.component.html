@@ -46,10 +46,18 @@
   </div>
   <div class="col-sm-6">
     <h3>Students</h3>
+    <!-- Template to show nothing to display in the list-->
+    <ng-template #noStudents>
+      <p>No students</p>
+    </ng-template>
+
     <div class="col-xs-6">
       <div class="form-group">
         <label for="firstName">Available</label>
-        <ul class="list-group">
+        <ul
+          class="list-group"
+          *ngIf="availableStudents.length > 0; else noStudents"
+        >
           <li
             class="list-group-item"
             *ngFor="let student of availableStudents"
@@ -63,7 +71,10 @@
     <div class="col-xs-6">
       <div class="form-group">
         <label for="firstName">Assigned</label>
-        <ul class="list-group">
+        <ul
+          class="list-group"
+          *ngIf="assignedStudents.length > 0; else noStudents"
+        >
           <li
             class="list-group-item"
             *ngFor="let student of assignedStudents"

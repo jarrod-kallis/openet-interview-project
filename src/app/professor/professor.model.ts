@@ -20,4 +20,10 @@ export class Professor extends Person {
   set students(students: number[]) {
     this._students = students;
   }
+
+  clone(): Professor {
+    return new Professor(this.id, this.firstName, this.lastName, [
+      ...this.students
+    ]);
+  }
 }

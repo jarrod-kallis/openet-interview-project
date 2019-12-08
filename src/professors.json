@@ -1,0 +1,5 @@
+[
+  { "id": 1, "firstName": "Professor", "lastName": "Kallis", "students": [] },
+  { "id": 2, "firstName": "Professor", "lastName": "Johnson", "students": [] },
+  { "id": 3, "firstName": "Professor", "lastName": "Wrench", "students": [3] }
+]

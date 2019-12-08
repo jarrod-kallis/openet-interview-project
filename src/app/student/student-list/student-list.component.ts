@@ -8,7 +8,7 @@ import { StudentService } from "src/app/shared/services/student.service";
   styleUrls: ["./student-list.component.css"]
 })
 export class StudentListComponent implements OnInit {
-  private students: Student[] = [];
+  students: Student[] = [];
 
   constructor(private studentService: StudentService) {}
 
