@@ -21,7 +21,7 @@ export class StudentService {
           studentJson.id,
           studentJson.firstName,
           studentJson.lastName,
-          studentJson.students
+          studentJson.professors
         )
       );
     }

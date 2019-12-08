@@ -1,25 +1,37 @@
-<app-add-button>Add New Student</app-add-button>
+<div *ngIf="!updating">
+  <app-add-button>Add New Student</app-add-button>
 
-<hr />
+  <hr />
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let student of students">
-      <td>{{ student.firstName }}</td>
-      <td>{{ student.lastName }}</td>
-      <td>
-        <button class="btn btn-success" style="margin-right: 5px;">
-          Update
-        </button>
-        <button class="btn btn-danger">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students">
+        <td>{{ student.firstName }}</td>
+        <td>{{ student.lastName }}</td>
+        <td>
+          <button
+            class="btn btn-success"
+            style="margin-right: 5px;"
+            (click)="onUpdateClick(student)"
+          >
+            Update
+          </button>
+          <button class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-student-detail
+  *ngIf="updating"
+  [student]="selectedStudent"
+  (onCancelClicked)="onCancelClick()"
+></app-student-detail>

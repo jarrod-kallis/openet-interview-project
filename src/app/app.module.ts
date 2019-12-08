@@ -17,6 +17,7 @@ import { MenuCollapseDirective } from './shared/directives/menu-collapse.directi
 import { HamburgerButtonComponent } from './header/hamburger-button/hamburger-button.component';
 import { AssignListComponent } from './shared/components/list/assign-list/assign-list.component';
 import { PersonDetailComponent } from './shared/components/person-detail/person-detail.component';
+import { StudentDetailComponent } from './student/student-detail/student-detail.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PersonDetailComponent } from './shared/components/person-detail/person-
     MenuCollapseDirective,
     HamburgerButtonComponent,
     AssignListComponent,
-    PersonDetailComponent
+    PersonDetailComponent,
+    StudentDetailComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [StudentService, ProfessorService],
