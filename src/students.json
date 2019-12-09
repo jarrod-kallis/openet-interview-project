@@ -1,5 +1,25 @@
 [
-  { "id": 1, "firstName": "Jack", "lastName": "Smith", "professors": [] },
-  { "id": 2, "firstName": "Jill", "lastName": "Adams", "professors": [] },
-  { "id": 3, "firstName": "Ben", "lastName": "Paulsen", "professors": [3] }
+  {
+    "id": 1,
+    "firstName": "Jack",
+    "lastName": "Smith",
+    "professors": []
+  },
+  {
+    "id": 2,
+    "firstName": "Jill",
+    "lastName": "Adams",
+    "professors": [
+      1
+    ]
+  },
+  {
+    "id": 3,
+    "firstName": "Ben",
+    "lastName": "Paulsen",
+    "professors": [
+      1,
+      3
+    ]
+  }
 ]

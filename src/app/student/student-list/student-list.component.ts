@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Student } from "../student.model";
-import { StudentService } from "src/app/shared/services/student.service";
+import { StudentService } from "../../shared/services/student.service";
 
 @Component({
   selector: "app-student-list",
@@ -12,7 +12,7 @@ export class StudentListComponent implements OnInit {
   updating: boolean = false;
   selectedStudent: Student = null;
 
-  constructor(private studentService: StudentService) {}
+  constructor(private studentService: StudentService) { }
 
   ngOnInit() {
     this.students = this.studentService.getStudents();
@@ -21,7 +21,7 @@ export class StudentListComponent implements OnInit {
       students => (this.students = students)
     );
 
-    this.studentService.onStudentsSavedEvent.subscribe(() =>
+    this.studentService.onStudentSavedEvent.subscribe(() =>
       this.onResetSelectedStudent()
     );
   }

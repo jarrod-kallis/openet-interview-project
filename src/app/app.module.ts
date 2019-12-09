@@ -18,6 +18,9 @@ import { HamburgerButtonComponent } from './header/hamburger-button/hamburger-bu
 import { AssignListComponent } from './shared/components/list/assign-list/assign-list.component';
 import { PersonDetailComponent } from './shared/components/person-detail/person-detail.component';
 import { StudentDetailComponent } from './student/student-detail/student-detail.component';
+import { ProfessorStudentLinkService } from './shared/services/professor-student-link.service';
+import { ModalComponent } from './shared/components/modal/modal.component';
+import { BackdropComponent } from './shared/components/backdrop/backdrop.component';
 
 @NgModule({
   declarations: [
@@ -33,10 +36,14 @@ import { StudentDetailComponent } from './student/student-detail/student-detail.
     HamburgerButtonComponent,
     AssignListComponent,
     PersonDetailComponent,
-    StudentDetailComponent
+    StudentDetailComponent,
+    ModalComponent,
+    BackdropComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
-  providers: [StudentService, ProfessorService],
+  providers: [ProfessorStudentLinkService, StudentService, ProfessorService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(professorStudentService: ProfessorStudentLinkService) { }
+}

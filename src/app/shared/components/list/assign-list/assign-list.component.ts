@@ -9,13 +9,13 @@ import { Person } from "../../../models/person.model";
 })
 export class AssignListComponent implements OnInit {
   @Input() heading: string;
-  @Input() people: Person[];
+  @Input() people: Set<Person>;
 
   @Output() onClick = new EventEmitter<Person>();
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onPersonClick(person: Person) {
     this.onClick.emit(person);

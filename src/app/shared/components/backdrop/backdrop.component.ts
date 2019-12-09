@@ -1,11 +1,11 @@
 import { Component, Output, EventEmitter } from "@angular/core";
 
 @Component({
-  selector: "app-add-button",
-  templateUrl: "./add-button.component.html",
-  styleUrls: ["./add-button.component.css"]
+  selector: "app-backdrop",
+  templateUrl: "./backdrop.component.html",
+  styleUrls: ["./backdrop.component.css"]
 })
-export class AddButtonComponent {
+export class BackdropComponent {
   @Output() onClicked = new EventEmitter<null>();
 
   constructor() { }

@@ -1,30 +1,20 @@
 <div class="row">
   <div class="col-sm-6">
-    <app-person-detail
-      [heading]="'Professor'"
-      [person]="professor"
-      (onSave)="onSaveClick($event)"
-      (onCancel)="onCancelClick()"
-    ></app-person-detail>
+    <app-person-detail [heading]="'Professor'" [person]="professor" (onSave)="onSaveClick($event)"
+      (onCancel)="onCancelClick()"></app-person-detail>
   </div>
   <div class="col-sm-6">
     <h3>Students</h3>
     <div class="col-xs-6">
       <div class="form-group">
-        <app-assign-list
-          [heading]="'Available'"
-          [people]="availableStudents"
-          (onClick)="onAvailableStudentClick($event)"
-        ></app-assign-list>
+        <app-assign-list [heading]="'Available'" [people]="availableStudentsSet"
+          (onClick)="onAvailableStudentClick($event)"></app-assign-list>
       </div>
     </div>
     <div class="col-xs-6">
       <div class="form-group">
-        <app-assign-list
-          [heading]="'Assigned'"
-          [people]="assignedStudents"
-          (onClick)="onAssignedStudentClick($event)"
-        ></app-assign-list>
+        <app-assign-list [heading]="'Assigned'" [people]="assignedStudentsSet"
+          (onClick)="onAssignedStudentClick($event)"></app-assign-list>
       </div>
     </div>
   </div>

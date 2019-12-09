@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   Input,
   OnChanges,
   Output,
@@ -12,35 +11,35 @@ import { ProfessorService } from "../../shared/services/professor.service";
 import { StudentService } from "../../shared/services/student.service";
 import { Student } from "../../student/student.model";
 import { Person } from "../../shared/models/person.model";
+import { ProfessorStudentLinkService } from '../../shared/services/professor-student-link.service';
 
 @Component({
   selector: "app-professor-detail",
   templateUrl: "./professor-detail.component.html",
   styleUrls: ["./professor-detail.component.css"]
 })
-export class ProfessorDetailComponent implements OnInit, OnChanges {
+export class ProfessorDetailComponent implements OnChanges {
   @Input() professor: Professor;
   allStudents: Student[] = [];
-  assignedStudents: Student[] = [];
-  availableStudents: Student[] = [];
+  assignedStudentsSet: Set<Student> = new Set<Student>();
+  availableStudentsSet: Set<Student> = new Set<Student>();
 
   @Output() onCancelClicked: EventEmitter<null> = new EventEmitter<null>();
 
   constructor(
     private professorService: ProfessorService,
-    private studentService: StudentService
-  ) {}
-
-  ngOnInit() {}
+    private studentService: StudentService,
+    private professorStudentLinkService: ProfessorStudentLinkService
+  ) { }
 
   ngOnChanges() {
     this.allStudents = this.studentService.getStudents();
 
-    this.handleStudents();
+    this.setupInitialStudents();
   }
 
-  onSaveClick(person: Person) {
-    this.professorService.save(person as Professor);
+  onSaveClick = (person: Person) => {
+    this.professorService.save(person as Professor, this.availableStudentsSet, this.assignedStudentsSet);
   }
 
   onCancelClick() {
@@ -48,27 +47,23 @@ export class ProfessorDetailComponent implements OnInit, OnChanges {
   }
 
   onAvailableStudentClick(student: Student) {
-    this.professor.students.push(student.id);
-    this.handleStudents();
+    this.assignedStudentsSet.add(student);
+    this.availableStudentsSet.delete(student);
   }
 
   onAssignedStudentClick(student: Student) {
-    this.professor.students = this.professor.students.filter(
-      studentId => studentId !== student.id
-    );
-    this.handleStudents();
+    this.assignedStudentsSet.delete(student);
+    this.availableStudentsSet.add(student);
   }
 
-  handleStudents() {
-    this.assignedStudents = [];
-    this.availableStudents = [];
+  setupInitialStudents = () => {
+    this.assignedStudentsSet = new Set<Student>();
+    this.availableStudentsSet = new Set<Student>();
 
-    this.allStudents.filter(student => {
-      if (this.professor.students.indexOf(student.id) > -1) {
-        this.assignedStudents.push(student);
-      } else {
-        this.availableStudents.push(student);
-      }
+    this.allStudents.forEach(student => {
+      this.professorStudentLinkService.professorHasStudent(this.professor.id, student.id)
+        ? this.assignedStudentsSet.add(student)
+        : this.availableStudentsSet.add(student);
     });
   }
 }

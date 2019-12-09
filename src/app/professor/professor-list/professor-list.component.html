@@ -1,5 +1,10 @@
+<app-modal *ngIf="deleting" [title]="'Delete Professor'" [btnConfirmTitle]="'Okay'" (onSubmitted)="onDeleteConfirmed()"
+  (onCancelled)="onDeleteCancelled()">
+  <p>Are you sure you want to delete {{ selectedProfessor.firstName }} {{ selectedProfessor.lastName }}?</p>
+</app-modal>
+
 <div *ngIf="!updating">
-  <app-add-button>Add New Professor</app-add-button>
+  <app-add-button (onClicked)="onAddNewClick()">Add New Professor</app-add-button>
 
   <hr />
 
@@ -16,22 +21,15 @@
         <td>{{ professor.firstName }}</td>
         <td>{{ professor.lastName }}</td>
         <td>
-          <button
-            class="btn btn-success"
-            style="margin-right: 5px;"
-            (click)="onUpdateClick(professor)"
-          >
+          <button class="btn btn-success" style="margin-right: 5px;" (click)="onUpdateClick(professor)">
             Update
           </button>
-          <button class="btn btn-danger">Delete</button>
+          <button class="btn btn-danger" (click)="onDeleteClick(professor)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<app-professor-detail
-  *ngIf="updating"
-  [professor]="selectedProfessor"
-  (onCancelClicked)="onCancelClick()"
-></app-professor-detail>
+<app-professor-detail *ngIf="updating" [professor]="selectedProfessor" (onCancelClicked)="onCancelClick()">
+</app-professor-detail>
