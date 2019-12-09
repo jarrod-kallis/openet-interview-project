@@ -1,6 +1,8 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -40,7 +42,8 @@ import { BackdropComponent } from './shared/components/backdrop/backdrop.compone
     ModalComponent,
     BackdropComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, BrowserAnimationsModule,
+    ToastrModule.forRoot()],
   providers: [ProfessorStudentLinkService, StudentService, ProfessorService],
   bootstrap: [AppComponent]
 })

@@ -12,6 +12,7 @@ import { StudentService } from "../../shared/services/student.service";
 import { Student } from "../../student/student.model";
 import { Person } from "../../shared/models/person.model";
 import { ProfessorStudentLinkService } from '../../shared/services/professor-student-link.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: "app-professor-detail",
@@ -29,7 +30,8 @@ export class ProfessorDetailComponent implements OnChanges {
   constructor(
     private professorService: ProfessorService,
     private studentService: StudentService,
-    private professorStudentLinkService: ProfessorStudentLinkService
+    private professorStudentLinkService: ProfessorStudentLinkService,
+    private toastr: ToastrService
   ) { }
 
   ngOnChanges() {
@@ -38,8 +40,26 @@ export class ProfessorDetailComponent implements OnChanges {
     this.setupInitialStudents();
   }
 
+  isValid = (person: Person) => {
+    let isValid: boolean = true;
+
+    if (!person.firstName) {
+      this.toastr.error("Please fill in a first name");
+      isValid = false;
+    }
+
+    if (!person.lastName) {
+      this.toastr.error("Please fill in a last name");
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
   onSaveClick = (person: Person) => {
-    this.professorService.save(person as Professor, this.availableStudentsSet, this.assignedStudentsSet);
+    if (this.isValid(person)) {
+      this.professorService.save(person as Professor, this.availableStudentsSet, this.assignedStudentsSet);
+    }
   }
 
   onCancelClick() {
