@@ -75,7 +75,7 @@ export class ProfessorService {
   }
 
   delete = (professorId: number) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       setTimeout(() => {
         this.professors = this.professors.filter(
           professor => professor.id !== professorId

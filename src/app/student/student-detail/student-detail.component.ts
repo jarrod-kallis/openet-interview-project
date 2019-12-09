@@ -1,38 +1,59 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, Input, OnChanges, Output, EventEmitter } from "@angular/core";
+
 import { Student } from "../student.model";
-import { Professor } from "../../professor/professor.model";
-import { ProfessorService } from "../../shared/services/professor.service";
 import { StudentService } from "../../shared/services/student.service";
+import { ProfessorService } from "../../shared/services/professor.service";
+import { Professor } from "../../professor/professor.model";
 import { Person } from "../../shared/models/person.model";
+import { ProfessorStudentLinkService } from '../../shared/services/professor-student-link.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: "app-student-detail",
   templateUrl: "./student-detail.component.html",
   styleUrls: ["./student-detail.component.css"]
 })
-export class StudentDetailComponent implements OnInit {
+export class StudentDetailComponent implements OnChanges {
   @Input() student: Student;
   allProfessors: Professor[] = [];
-  assignedProfessors: Professor[] = [];
-  availableProfessors: Professor[] = [];
+  assignedProfessorsSet: Set<Professor> = new Set<Professor>();
+  availableProfessorsSet: Set<Professor> = new Set<Professor>();
 
   @Output() onCancelClicked: EventEmitter<null> = new EventEmitter<null>();
 
   constructor(
     private professorService: ProfessorService,
-    private studentService: StudentService
-  ) {}
-
-  ngOnInit() {}
+    private studentService: StudentService,
+    private professorStudentLinkService: ProfessorStudentLinkService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnChanges() {
     this.allProfessors = this.professorService.getProfessors();
 
-    this.handleProfessors();
+    this.setupInitialProfessors();
+  }
+
+  isValid = (person: Person) => {
+    let isValid: boolean = true;
+
+    if (!person.firstName) {
+      this.toastr.error("Please fill in a first name");
+      isValid = false;
+    }
+
+    if (!person.lastName) {
+      this.toastr.error("Please fill in a last name");
+      isValid = false;
+    }
+
+    return isValid;
   }
 
   onSaveClick(person: Person) {
-    this.studentService.save(person as Student);
+    if (this.isValid(person)) {
+      this.studentService.save(person as Student, this.availableProfessorsSet, this.assignedProfessorsSet);
+    }
   }
 
   onCancelClick() {
@@ -40,27 +61,23 @@ export class StudentDetailComponent implements OnInit {
   }
 
   onAvailableProfessorClick(professor: Professor) {
-    this.student.professors.push(professor.id);
-    this.handleProfessors();
+    this.assignedProfessorsSet.add(professor);
+    this.availableProfessorsSet.delete(professor);
   }
 
   onAssignedProfessorClick(professor: Professor) {
-    this.student.professors = this.student.professors.filter(
-      professorId => professorId !== professor.id
-    );
-    this.handleProfessors();
+    this.assignedProfessorsSet.delete(professor);
+    this.availableProfessorsSet.add(professor);
   }
 
-  handleProfessors() {
-    this.assignedProfessors = [];
-    this.availableProfessors = [];
+  setupInitialProfessors = () => {
+    this.assignedProfessorsSet = new Set<Student>();
+    this.availableProfessorsSet = new Set<Student>();
 
-    this.allProfessors.filter(professor => {
-      if (this.student.professors.indexOf(professor.id) > -1) {
-        this.assignedProfessors.push(professor);
-      } else {
-        this.availableProfessors.push(professor);
-      }
+    this.allProfessors.forEach(professor => {
+      this.professorStudentLinkService.studentHasProfessor(this.student.id, professor.id)
+        ? this.assignedProfessorsSet.add(professor)
+        : this.availableProfessorsSet.add(professor);
     });
   }
 }

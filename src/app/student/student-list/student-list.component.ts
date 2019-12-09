@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+
 import { Student } from "../student.model";
 import { StudentService } from "../../shared/services/student.service";
 
@@ -10,6 +11,7 @@ import { StudentService } from "../../shared/services/student.service";
 export class StudentListComponent implements OnInit {
   students: Student[] = [];
   updating: boolean = false;
+  deleting: boolean = false;
   selectedStudent: Student = null;
 
   constructor(private studentService: StudentService) { }
@@ -17,7 +19,7 @@ export class StudentListComponent implements OnInit {
   ngOnInit() {
     this.students = this.studentService.getStudents();
 
-    this.studentService.onStudentsChangeEvent.subscribe(
+    this.studentService.onStudentsChangedEvent.subscribe(
       students => (this.students = students)
     );
 
@@ -26,10 +28,29 @@ export class StudentListComponent implements OnInit {
     );
   }
 
+  onAddNewClick = () => {
+    this.selectedStudent = new Student(0, "", "");
+    this.updating = true;
+  }
+
   onUpdateClick(student: Student) {
     this.selectedStudent = student.clone();
-
     this.updating = true;
+  }
+
+  onDeleteClick = (student: Student) => {
+    this.selectedStudent = student;
+    this.deleting = true;
+  }
+
+  onDeleteConfirmed = async () => {
+    await this.studentService.delete(this.selectedStudent.id);
+    this.deleting = false;
+  }
+
+  onDeleteCancelled = () => {
+    this.deleting = false;
+    this.onResetSelectedStudent();
   }
 
   onResetSelectedStudent() {

@@ -1,5 +1,10 @@
+<app-modal *ngIf="deleting" [title]="'Delete Student'" [btnConfirmTitle]="'Okay'" (onSubmitted)="onDeleteConfirmed()"
+  (onCancelled)="onDeleteCancelled()">
+  <p>Are you sure you want to delete {{ selectedStudent.firstName }} {{ selectedStudent.lastName }}?</p>
+</app-modal>
+
 <div *ngIf="!updating">
-  <app-add-button>Add New Student</app-add-button>
+  <app-add-button (onClicked)="onAddNewClick()">Add New Student</app-add-button>
 
   <hr />
 
@@ -16,22 +21,15 @@
         <td>{{ student.firstName }}</td>
         <td>{{ student.lastName }}</td>
         <td>
-          <button
-            class="btn btn-success"
-            style="margin-right: 5px;"
-            (click)="onUpdateClick(student)"
-          >
+          <button class="btn btn-success" style="margin-right: 5px;" (click)="onUpdateClick(student)">
             Update
           </button>
-          <button class="btn btn-danger">Delete</button>
+          <button class="btn btn-danger" (click)="onDeleteClick(student)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<app-student-detail
-  *ngIf="updating"
-  [student]="selectedStudent"
-  (onCancelClicked)="onCancelClick()"
-></app-student-detail>
+<app-student-detail *ngIf="updating" [student]="selectedStudent" (onCancelClicked)="onCancelClick()">
+</app-student-detail>

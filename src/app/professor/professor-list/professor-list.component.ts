@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 import { Professor } from "../professor.model";
-import { ProfessorService } from "src/app/shared/services/professor.service";
+import { ProfessorService } from "../../shared/services/professor.service";
 
 @Component({
   selector: "app-professor-list",
