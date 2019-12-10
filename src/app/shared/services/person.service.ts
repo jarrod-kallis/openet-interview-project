@@ -1,6 +1,7 @@
+import { EventEmitter } from '@angular/core';
+
 import { Person } from '../models/person.model';
 import { PersonService as PersonServiceInterface } from './interfaces/person.service.js';
-import { EventEmitter } from '@angular/core';
 
 export class PersonService implements PersonServiceInterface {
   onPeopleLoadedEvent: EventEmitter<[{ id: number, peopleIds: number[] }]> = new EventEmitter<[{ id: number, peopleIds: number[] }]>();
