@@ -4,9 +4,7 @@ import { StudentService } from './student.service';
 import { ProfessorService } from './professor.service';
 import { Person } from '../models/person.model';
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 export class ProfessorStudentLinkService {
   private _professorStudentMap: Map<number, Set<number>> = new Map<number, Set<number>>();
   private _studentProfessorMap: Map<number, Set<number>> = new Map<number, Set<number>>();

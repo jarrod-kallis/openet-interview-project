@@ -3,7 +3,6 @@ import * as professorData from "../../../professors.json";
 import { PersonService } from './person.service.js';
 import { Professor } from '../../professor/professor.model.js';
 import { Person } from '../models/person.model.js';
-import { StudentService } from './student.service.js';
 
 export class ProfessorService extends PersonService {
   constructor() {
