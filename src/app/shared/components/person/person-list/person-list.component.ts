@@ -1,15 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { OnInit } from '@angular/core';
 
 import { Person } from '../../../models/person.model';
 import { PersonService } from '../../../services/person.service';
 import { Professor } from '../../../../professor/professor.model';
 import { Student } from '../../../../student/student.model';
 
-@Component({
-  selector: 'app-person-list',
-  templateUrl: './person-list.component.html',
-  styleUrls: ['./person-list.component.css']
-})
 export class PersonListComponent implements OnInit {
   mainTitle: string = "People";
   deleteModalTitle: string = "Delete Person";

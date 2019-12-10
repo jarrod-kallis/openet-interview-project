@@ -8,7 +8,7 @@ import { MenuItem } from "./shared/constants";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  private selectedMenuItem: MenuItem = MenuItem.Home;
+  selectedMenuItem: MenuItem = MenuItem.Home;
 
   onNavigatedTo(selectedMenuItem: MenuItem) {
     this.selectedMenuItem = selectedMenuItem;

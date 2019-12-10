@@ -1,28 +1,14 @@
 import {
-  Component,
-  OnInit,
   Input,
   Output,
   EventEmitter,
-  ViewChild,
-  ElementRef,
   OnChanges
 } from "@angular/core";
 
 import { Person } from "../../../models/person.model";
-import { Professor } from '../../../../professor/professor.model';
-import { Student } from '../../../../student/student.model';
-import { ProfessorService } from '../../../services/professor.service';
-import { StudentService } from '../../../services/student.service';
-import { ProfessorStudentLinkService } from '../../../services/professor-student-link.service';
 import { ToastrService } from 'ngx-toastr';
 import { PersonService } from '../../../services/person.service';
 
-// @Component({
-//   selector: "app-person-detail",
-//   templateUrl: "./person-detail.component.html",
-//   styleUrls: ["./person-detail.component.css"]
-// })
 export class PersonDetailComponent implements OnChanges {
   formHeading: string = "Person";
   availableAssignedHeading: string = "People";
