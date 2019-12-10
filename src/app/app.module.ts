@@ -18,11 +18,14 @@ import { MenuDropDownDirective } from './shared/directives/menu-drop-down.direct
 import { MenuCollapseDirective } from './shared/directives/menu-collapse.directive';
 import { HamburgerButtonComponent } from './header/hamburger-button/hamburger-button.component';
 import { AssignListComponent } from './shared/components/list/assign-list/assign-list.component';
-import { PersonDetailComponent } from './shared/components/person-detail/person-detail.component';
+// import { PersonDetailComponent } from './shared/components/person/person-detail/person-detail.component';
 import { StudentDetailComponent } from './student/student-detail/student-detail.component';
 import { ProfessorStudentLinkService } from './shared/services/professor-student-link.service';
 import { ModalComponent } from './shared/components/modal/modal.component';
 import { BackdropComponent } from './shared/components/backdrop/backdrop.component';
+// import { PersonListComponent } from './shared/components/person/person-list/person-list.component';
+import { PersonFormComponent } from './shared/components/person/person-form/person-form.component';
+import { PersonService } from './shared/services/person.service';
 
 @NgModule({
   declarations: [
@@ -37,10 +40,12 @@ import { BackdropComponent } from './shared/components/backdrop/backdrop.compone
     MenuCollapseDirective,
     HamburgerButtonComponent,
     AssignListComponent,
-    PersonDetailComponent,
+    // PersonDetailComponent,
     StudentDetailComponent,
     ModalComponent,
-    BackdropComponent
+    BackdropComponent,
+    // PersonListComponent,
+    PersonFormComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, BrowserAnimationsModule,
     ToastrModule.forRoot()],

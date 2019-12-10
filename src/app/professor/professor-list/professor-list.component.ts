@@ -1,64 +1,36 @@
 import { Component, OnInit } from "@angular/core";
 
-import { Professor } from "../professor.model";
-import { ProfessorService } from "../../shared/services/professor.service";
+import { PersonListComponent } from '../../shared/components/person/person-list/person-list.component';
+import { ProfessorService } from '../../shared/services/professor.service';
+import { Professor } from '../professor.model';
 
 @Component({
   selector: "app-professor-list",
-  templateUrl: "./professor-list.component.html",
-  styleUrls: ["./professor-list.component.css"]
+  templateUrl: "../../shared/components/person/person-list/person-list.component.html",
+  styleUrls: ["../../shared/components/person/person-list/person-list.component.css"]
 })
-export class ProfessorListComponent implements OnInit {
-  professors: Professor[] = [];
-  updating: boolean = false;
-  deleting: boolean = false;
-  selectedProfessor: Professor = null;
+export class ProfessorListComponent extends PersonListComponent implements OnInit {
+  mainTitle = "Professors";
+  deleteModalTitle = 'Delete Professor';
+  btnAddNewCaption = "Add New Professor";
 
-  constructor(private professorService: ProfessorService) { }
-
-  ngOnInit() {
-    this.professors = this.professorService.getProfessors();
-
-    this.professorService.onProfessorsChangedEvent.subscribe(
-      professors => (this.professors = professors)
-    );
-
-    this.professorService.onProfessorSavedEvent.subscribe(() =>
-      this.onResetSelectedProfessor()
-    );
+  constructor(professorService: ProfessorService) {
+    super(professorService);
+    console.log('ProfessorListComponent constructor');
   }
 
-  onAddNewClick = () => {
-    this.selectedProfessor = new Professor(0, "", "");
-    this.updating = true;
+  // Lambda expression doesn't work here.
+  // Unable to call super() ???
+  onAddNewClick() {
+    this.selectedPerson = new Professor(0, "", "");
+    super.onAddNewClick();
   }
 
-  onUpdateClick = (professor: Professor) => {
-    this.selectedProfessor = professor.clone();
-    this.updating = true;
-  }
-
-  onDeleteClick = (professor: Professor) => {
-    this.selectedProfessor = professor;
-    this.deleting = true;
-  }
-
-  onDeleteConfirmed = async () => {
-    await this.professorService.delete(this.selectedProfessor.id);
-    this.deleting = false;
-  }
-
-  onDeleteCancelled = () => {
-    this.deleting = false;
-    this.onResetSelectedProfessor();
-  }
-
-  onResetSelectedProfessor = () => {
-    this.selectedProfessor = null;
-    this.updating = false;
-  }
-
-  onCancelClick = () => {
-    this.onResetSelectedProfessor();
+  // Lambda expression doesn't work here.
+  // Unable to call super() ???
+  onUpdateClick(person: Professor) {
+    // person.clone() instanceof Professor === false ???
+    this.selectedPerson = new Professor(person.id, person.firstName, person.lastName); // person.clone();
+    super.onUpdateClick(person);
   }
 }

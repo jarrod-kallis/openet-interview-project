@@ -2,8 +2,7 @@ import { Injectable } from "@angular/core";
 
 import { StudentService } from './student.service';
 import { ProfessorService } from './professor.service';
-import { Student } from '../../student/student.model';
-import { Professor } from '../../professor/professor.model';
+import { Person } from '../models/person.model';
 
 @Injectable({
   providedIn: "root"
@@ -14,48 +13,98 @@ export class ProfessorStudentLinkService {
 
   constructor(private studentService: StudentService, private professorService: ProfessorService) {
     console.log('Professor Student Link service constructor');
-    this.studentService.onStudentsLoadedEvent.subscribe(this.mapStudentProfessors);
-    this.studentService.onStudentSavedEvent.subscribe(this.studentSaved);
-    this.studentService.onStudentDeletedEvent.subscribe(this.studentDeleted);
+    this.studentService.onPeopleLoadedEvent.subscribe(this.studentsLoaded);
+    this.studentService.onPersonSavedEvent.subscribe(this.studentSaved);
+    this.studentService.onPersonDeletedEvent.subscribe(this.studentDeleted);
 
-    this.professorService.onProfessorsLoadedEvent.subscribe(this.mapProfessorStudents);
-    this.professorService.onProfessorSavedEvent.subscribe(this.professorSaved);
-    this.professorService.onProfessorDeletedEvent.subscribe(this.professorDeleted);
+    this.professorService.onPeopleLoadedEvent.subscribe(this.professorsLoaded);
+    this.professorService.onPersonSavedEvent.subscribe(this.professorSaved);
+    this.professorService.onPersonDeletedEvent.subscribe(this.professorDeleted);
   }
 
-  // get professorStudentMap(): Map<number, Set<number>> {
-  //   return this._professorStudentMap;
-  // }
-
   // Map the professor ids linked to students
-  mapStudentProfessors = (students: [{ id: number, professors: number[] }]) => {
+  studentsLoaded = (students: [{ id: number, peopleIds: number[] }]) => {
     console.log('Professor Student Link service mapStudentProfessors');
-    students.forEach(student => {
-      if (!this._studentProfessorMap.get(student.id)) {
-        this._studentProfessorMap.set(student.id, new Set<number>());
-      }
-      student.professors.forEach((professorId: number) => {
-        this._studentProfessorMap.get(student.id).add(professorId);
-      });
-    });
-
+    this.mapPeople(students, this._studentProfessorMap);
     console.log('Student professors:', this._studentProfessorMap);
   }
 
   // Map the student ids linked to professors
-  // This is needed incase a professor doesn't have any students
-  mapProfessorStudents = (professors: [{ id: number, students: number[] }]) => {
+  // This is needed in case a professor doesn't have any students
+  professorsLoaded = (professors: [{ id: number, peopleIds: number[] }]) => {
     console.log('Professor Student Link service mapProfessorStudents');
-    professors.forEach(professor => {
-      if (!this._professorStudentMap.get(professor.id)) {
-        this._professorStudentMap.set(professor.id, new Set<number>());
+    this.mapPeople(professors, this._professorStudentMap);
+    console.log('Professor students:', this._professorStudentMap);
+  }
+
+  private mapPeople = (people: [{ id: number, peopleIds: number[] }], map: Map<number, Set<number>>) => {
+    people.forEach(person => {
+      if (!map.get(person.id)) {
+        map.set(person.id, new Set<number>());
       }
-      professor.students.forEach((studentId: number) => {
-        this._professorStudentMap.get(professor.id).add(studentId);
+      person.peopleIds.forEach((personId: number) => {
+        map.get(person.id).add(personId);
       });
     });
+  }
 
-    console.log('Professor students:', this._professorStudentMap);
+  // Fired when a student is saved (updated or inserted)
+  studentSaved = (data: { person: Person, availablePeople: Set<Person>, assignedPeople: Set<Person> }) => {
+    this.personSaved(data, this._studentProfessorMap, this._professorStudentMap);
+  }
+
+  // Fired when a professor is saved (updated or inserted)
+  professorSaved = (data: { person: Person, availablePeople: Set<Person>, assignedPeople: Set<Person> }) => {
+    this.personSaved(data, this._professorStudentMap, this._studentProfessorMap);
+  }
+
+  personSaved = (data: { person: Person, availablePeople: Set<Person>, assignedPeople: Set<Person> },
+    map: Map<number, Set<number>>, inverseMap: Map<number, Set<number>>) => {
+    if (!map.get(data.person.id)) {
+      // Create a new mapping
+      map.set(data.person.id, new Set<number>());
+    }
+
+    // Build up mapping for assigned people
+    data.assignedPeople.forEach((person: Person) => {
+      // This person wasn't previously assigned
+      if (!map.get(data.person.id).has(person.id)) {
+        // New person to assign
+        map.get(data.person.id).add(person.id);
+        inverseMap.get(person.id).add(data.person.id);
+      }
+    });
+
+    // Build up mapping for available people
+    data.availablePeople.forEach((person: Person) => {
+      // Remove the person (there might not be an entry, but that's fine)
+      map.get(data.person.id).delete(person.id);
+      inverseMap.get(person.id).delete(data.person.id);
+    });
+
+    console.log('Person Saved:', data.person.id);
+    console.log('Map:', map.get(data.person.id));
+    console.log('Inverse Map:', inverseMap);
+  }
+
+  // Fired when a professor is deleted
+  professorDeleted = (professorId: number) => {
+    this.personDeleted(professorId, this._professorStudentMap, this._studentProfessorMap);
+  }
+
+  // Fired when a student is deleted
+  studentDeleted = (studentId: number) => {
+    this.personDeleted(studentId, this._studentProfessorMap, this._professorStudentMap);
+  }
+
+  personDeleted = (personId: number, map: Map<number, Set<number>>, inverseMap: Map<number, Set<number>>) => {
+    const assignedPersonSet: Set<number> = map.get(personId);
+
+    map.delete(personId);
+
+    assignedPersonSet.forEach(linkedPersonId => {
+      inverseMap.get(linkedPersonId).delete(personId);
+    });
   }
 
   // Helper method to determine if a student belongs to a professor
@@ -70,91 +119,5 @@ export class ProfessorStudentLinkService {
     let professors: Set<number> = this._studentProfessorMap.get(studentId);
 
     return professors && professors.has(professorId);
-  }
-
-  // Fired when a student is saved (updated or inserted)
-  studentSaved = (data: { student: Student, availableProfessors: Set<Professor>, assignedProfessors: Set<Professor> }) => {
-    if (!this._studentProfessorMap.get(data.student.id)) {
-      // Create a new mapping
-      this._studentProfessorMap.set(data.student.id, new Set<number>());
-    }
-
-    // Build up mapping for assigned professors
-    data.assignedProfessors.forEach((professor: Professor) => {
-      // The professor wasn't previous assigned to the student?
-      if (!this._studentProfessorMap.get(data.student.id).has(professor.id)) {
-        // New professor to the student
-        this._studentProfessorMap.get(data.student.id).add(professor.id);
-        // Therefore also a new student to the professor
-        this._professorStudentMap.get(professor.id).add(data.student.id);
-      }
-    });
-
-    // Build up mapping for available professors
-    data.availableProfessors.forEach((professor: Professor) => {
-      // Remove the professor from the student (there might not be an entry, but that's fine)
-      this._studentProfessorMap.get(data.student.id).delete(professor.id);
-
-      // Remove the student from the professor (there might not be an entry, but that's fine)
-      this._professorStudentMap.get(professor.id).delete(data.student.id);
-    });
-
-    console.log('Student Saved:', data.student.id);
-    console.log('Student Professors:', this._studentProfessorMap.get(data.student.id));
-    console.log('Professor Students:', this._professorStudentMap);
-  }
-
-  // Fired when a professor is saved (updated or inserted)
-  professorSaved = (data: { professor: Professor, availableStudents: Set<Student>, assignedStudents: Set<Student> }) => {
-    if (!this._professorStudentMap.get(data.professor.id)) {
-      // Create a new mapping
-      this._professorStudentMap.set(data.professor.id, new Set<number>());
-    }
-
-    // Build up mapping for assigned students
-    data.assignedStudents.forEach((student: Student) => {
-      // The student wasn't previous assigned to the professor?
-      if (!this._professorStudentMap.get(data.professor.id).has(student.id)) {
-        // New student to the professor
-        this._professorStudentMap.get(data.professor.id).add(student.id);
-        // Therefore also a new professor to the student
-        this._studentProfessorMap.get(student.id).add(data.professor.id);
-      }
-    });
-
-    // Build up mapping for available students
-    data.availableStudents.forEach((student: Student) => {
-      // Remove the student from the professor (there might not be an entry, but that's fine)
-      this._professorStudentMap.get(data.professor.id).delete(student.id);
-
-      // Remove the professor from the student (there might not be an entry, but that's fine)
-      this._studentProfessorMap.get(student.id).delete(data.professor.id);
-    });
-
-    console.log('Professor Saved:', data.professor.id);
-    console.log('Professor Students:', this._professorStudentMap.get(data.professor.id));
-    console.log('Student Professors:', this._studentProfessorMap);
-  }
-
-  // Fired when a professor is deleted
-  professorDeleted = (professorId: number) => {
-    const assignedStudentSet: Set<number> = this._professorStudentMap.get(professorId);
-
-    this._professorStudentMap.delete(professorId);
-
-    assignedStudentSet.forEach(studentId => {
-      this._studentProfessorMap.get(studentId).delete(professorId);
-    });
-  }
-
-  // Fired when a student is deleted
-  studentDeleted = (studentId: number) => {
-    const assignedProfessorSet: Set<number> = this._studentProfessorMap.get(studentId);
-
-    this._studentProfessorMap.delete(studentId);
-
-    assignedProfessorSet.forEach(professorId => {
-      this._professorStudentMap.get(professorId).delete(studentId);
-    });
   }
 }

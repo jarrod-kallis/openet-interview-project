@@ -1,21 +1,13 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-  ElementRef
-} from "@angular/core";
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
 
-import { Person } from "../../models/person.model";
+import { Person } from "../../../models/person.model";
 
 @Component({
-  selector: "app-person-detail",
-  templateUrl: "./person-detail.component.html",
-  styleUrls: ["./person-detail.component.css"]
+  selector: 'app-person-form',
+  templateUrl: './person-form.component.html',
+  styleUrls: ['./person-form.component.css']
 })
-export class PersonDetailComponent implements OnInit {
+export class PersonFormComponent implements OnInit {
   @Input() heading: string;
   @Input() person: Person;
 
@@ -25,17 +17,11 @@ export class PersonDetailComponent implements OnInit {
   @ViewChild("firstNameInput", { static: false }) firstNameInputRef: ElementRef;
   @ViewChild("lastNameInput", { static: false }) lastNameInputRef: ElementRef;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSaveClick() {
-    // const person: Person = new Person(
-    //   this.person.id,
-    //   this.firstNameInputRef.nativeElement.value,
-    //   this.lastNameInputRef.nativeElement.value
-    // );
-
     this.person.firstName = this.firstNameInputRef.nativeElement.value;
     this.person.lastName = this.lastNameInputRef.nativeElement.value;
 
