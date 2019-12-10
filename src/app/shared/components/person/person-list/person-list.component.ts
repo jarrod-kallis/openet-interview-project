@@ -22,8 +22,10 @@ export class PersonListComponent implements OnInit {
     this.personService = personService;
   }
 
-  ngOnInit() {
-    this.people = this.personService.get();
+  async ngOnInit() {
+    // console.log('PersonListComponent onInit');
+    this.people = await this.personService.get();
+    // console.log('PersonListComponent onInit people', this.people);
 
     this.personService.onPeopleChangedEvent.subscribe(
       people => (this.people = people)

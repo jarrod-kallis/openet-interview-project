@@ -1,9 +1,9 @@
 import { EventEmitter } from '@angular/core';
 
 import { Person } from '../models/person.model';
-import { PersonService as PersonServiceInterface } from './interfaces/person.service.js';
+// import { PersonService as PersonServiceInterface } from './interfaces/person.service.js';
 
-export class PersonService implements PersonServiceInterface {
+export class PersonService {
   onPeopleLoadedEvent: EventEmitter<[{ id: number, peopleIds: number[] }]> = new EventEmitter<[{ id: number, peopleIds: number[] }]>();
   onPeopleChangedEvent: EventEmitter<Person[]> = new EventEmitter<Person[]>();
   onPersonSavedEvent: EventEmitter<{ person: Person, availablePeople: Set<Person>, assignedPeople: Set<Person> }> = new EventEmitter<{ person: Person, availablePeople: Set<Person>, assignedPeople: Set<Person> }>();
@@ -41,11 +41,14 @@ export class PersonService implements PersonServiceInterface {
     this.onPeopleLoadedEvent.emit(this.transformJsonData(this.jsonData));
   }
 
-  get = (): Person[] => {
-    return this.people.slice();
+  get = (): Promise<Person[]> => {
+    // return this.people.slice();
+    return new Promise(resolve => {
+      setTimeout(() => resolve(this.people.slice()), 1);
+    });
   }
 
-  save = (personToSave: Person, availablePeople: Set<Person>, assignedPeople: Set<Person>): void => {
+  save = async (personToSave: Person, availablePeople: Set<Person>, assignedPeople: Set<Person>) => {
     // Does the person exist
     let people: Person[] = this.people.filter(
       person => person.id === personToSave.id
@@ -69,20 +72,20 @@ export class PersonService implements PersonServiceInterface {
     }
 
     this.onPersonSavedEvent.emit({ person: personToSave, availablePeople, assignedPeople });
-    this.onPeopleChangedEvent.emit(this.get());
+    this.onPeopleChangedEvent.emit(await this.get());
   }
 
   delete = (personId: number): Promise<unknown> => {
     return new Promise(resolve => {
-      setTimeout(() => {
+      setTimeout(async () => {
         this.people = this.people.filter(
           person => person.id !== personId
         );
 
         this.onPersonDeletedEvent.emit(personId);
-        this.onPeopleChangedEvent.emit(this.get());
+        this.onPeopleChangedEvent.emit(await this.get());
 
-        resolve();
+        resolve(this.people);
       }, 250);
     });
   }

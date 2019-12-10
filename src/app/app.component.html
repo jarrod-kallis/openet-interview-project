@@ -1,10 +1,15 @@
-<app-header (onNavigatedTo)="onNavigatedTo($event)"></app-header>
+<!-- <app-header (onNavigatedTo)="onNavigatedTo($event)"></app-header> -->
+<app-header></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-home *ngIf="selectedMenuItem === menuItemEnum.Home"></app-home>
+      <!-- Router directive -->
+      <router-outlet>
+        <!-- Load the currently active route here -->
+      </router-outlet>
+      <!-- <app-home *ngIf="selectedMenuItem === menuItemEnum.Home"></app-home>
       <app-professor-list *ngIf="selectedMenuItem === menuItemEnum.Professor"></app-professor-list>
-      <app-student-list *ngIf="selectedMenuItem === menuItemEnum.Student"></app-student-list>
+      <app-student-list *ngIf="selectedMenuItem === menuItemEnum.Student"></app-student-list> -->
     </div>
   </div>
 </div>

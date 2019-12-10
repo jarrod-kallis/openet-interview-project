@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 
-import { MenuItem } from "../shared/constants";
+// import { MenuItem } from "../shared/constants";
 import { MenuCollapseService } from "../shared/services/menu-collapse.service";
 
 @Component({
@@ -12,23 +12,23 @@ import { MenuCollapseService } from "../shared/services/menu-collapse.service";
 export class HeaderComponent implements OnInit {
   // menuCollapsed: boolean;
 
-  @Output() onNavigatedTo = new EventEmitter<MenuItem>();
+  // @Output() onNavigatedTo = new EventEmitter<MenuItem>();
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  onNavigateToHome() {
-    this.onNavigatedTo.emit(MenuItem.Home);
-  }
+  // onNavigateToHome() {
+  //   this.onNavigatedTo.emit(MenuItem.Home);
+  // }
 
-  onNavigateToProfessors() {
-    this.onNavigatedTo.emit(MenuItem.Professor);
-  }
+  // onNavigateToProfessors() {
+  //   this.onNavigatedTo.emit(MenuItem.Professor);
+  // }
 
-  onNavigateToStudents() {
-    this.onNavigatedTo.emit(MenuItem.Student);
-  }
+  // onNavigateToStudents() {
+  //   this.onNavigatedTo.emit(MenuItem.Student);
+  // }
 
   // onMenuCollapse(collapsed: boolean) {
   //   this.menuCollapsed = collapsed;

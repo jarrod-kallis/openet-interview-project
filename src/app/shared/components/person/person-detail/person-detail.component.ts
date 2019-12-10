@@ -33,8 +33,8 @@ export class PersonDetailComponent implements OnChanges {
     this.alternatePersonService = alternatePersonService;
   }
 
-  ngOnChanges() {
-    this.allPeople = this.alternatePersonService.get();
+  async ngOnChanges() {
+    this.allPeople = await this.alternatePersonService.get();
 
     this.setupInitialPeople();
   }

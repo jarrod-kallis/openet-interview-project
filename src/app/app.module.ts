@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -18,14 +19,17 @@ import { MenuDropDownDirective } from './shared/directives/menu-drop-down.direct
 import { MenuCollapseDirective } from './shared/directives/menu-collapse.directive';
 import { HamburgerButtonComponent } from './header/hamburger-button/hamburger-button.component';
 import { AssignListComponent } from './shared/components/list/assign-list/assign-list.component';
-// import { PersonDetailComponent } from './shared/components/person/person-detail/person-detail.component';
 import { StudentDetailComponent } from './student/student-detail/student-detail.component';
 import { ProfessorStudentLinkService } from './shared/services/professor-student-link.service';
 import { ModalComponent } from './shared/components/modal/modal.component';
 import { BackdropComponent } from './shared/components/backdrop/backdrop.component';
-// import { PersonListComponent } from './shared/components/person/person-list/person-list.component';
 import { PersonFormComponent } from './shared/components/person/person-form/person-form.component';
-import { PersonService } from './shared/services/person.service';
+
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'professors', component: ProfessorListComponent },
+  { path: 'students', component: StudentListComponent }
+]
 
 @NgModule({
   declarations: [
@@ -40,15 +44,13 @@ import { PersonService } from './shared/services/person.service';
     MenuCollapseDirective,
     HamburgerButtonComponent,
     AssignListComponent,
-    // PersonDetailComponent,
     StudentDetailComponent,
     ModalComponent,
     BackdropComponent,
-    // PersonListComponent,
     PersonFormComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, BrowserAnimationsModule,
-    ToastrModule.forRoot()],
+    ToastrModule.forRoot(), RouterModule.forRoot(appRoutes)],
   providers: [ProfessorStudentLinkService, StudentService, ProfessorService],
   bootstrap: [AppComponent]
 })

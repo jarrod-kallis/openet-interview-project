@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { MenuItem } from '../shared/constants';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  get menuItemEnum() {
+    return MenuItem;
+  }
+
+  navigateTo(menuItem: MenuItem) {
+    let path = "/";
+
+    switch (menuItem) {
+      case MenuItem.Professor:
+        path = '/professors';
+        break;
+      case MenuItem.Student:
+        path = '/students';
+        break;
+      default:
+        path = '/';
+    }
+
+    this.router.navigate([path]);
+  }
 }

@@ -8,13 +8,13 @@ import { MenuItem } from "./shared/constants";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  selectedMenuItem: MenuItem = MenuItem.Home;
+  // selectedMenuItem: MenuItem = MenuItem.Home;
 
-  onNavigatedTo(selectedMenuItem: MenuItem) {
-    this.selectedMenuItem = selectedMenuItem;
-  }
+  // onNavigatedTo(selectedMenuItem: MenuItem) {
+  //   this.selectedMenuItem = selectedMenuItem;
+  // }
 
-  get menuItemEnum() {
-    return MenuItem;
-  }
+  // get menuItemEnum() {
+  //   return MenuItem;
+  // }
 }

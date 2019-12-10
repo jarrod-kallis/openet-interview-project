@@ -5,9 +5,9 @@ import { Directive, HostBinding, HostListener } from "@angular/core";
 })
 export class MenuDropDownDirective {
   // Control a property on an element
-  @HostBinding("class") class: string;
+  @HostBinding("class") class: string = "";
 
-  constructor() {}
+  constructor() { }
 
   // An event to listen to on the element
   @HostListener("mouseover") onHover() {

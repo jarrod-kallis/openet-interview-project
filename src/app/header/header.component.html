@@ -6,16 +6,17 @@
     </div>
     <div class="navbar-collapse" appMenuCollapse>
       <ul class="nav navbar-nav">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a routerLink="/">Home</a>
+        </li>
         <li class="dropdown" appMenuDropDown>
-          <a href="#" class="dropdown-toggle"
-            >Maintenance <span class="caret"></span
-          ></a>
+          <a class="dropdown-toggle">Maintenance <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li>
-              <a href="#" (click)="onNavigateToProfessors()">Professors</a>
+            <li routerLinkActive="active">
+              <a routerLink="/professors">Professors</a>
             </li>
-            <li>
-              <a href="#" (click)="onNavigateToStudents()">Students</a>
+            <li routerLinkActive="active">
+              <a routerLink="/students">Students</a>
             </li>
           </ul>
         </li>
