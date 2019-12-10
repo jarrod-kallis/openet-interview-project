@@ -1,11 +1,12 @@
-import { OnInit } from '@angular/core';
+import { OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { Person } from '../../../models/person.model';
 import { PersonService } from '../../../services/person.service';
 import { Professor } from '../../../../professor/professor.model';
 import { Student } from '../../../../student/student.model';
 
-export class PersonListComponent implements OnInit {
+export class PersonListComponent implements OnInit, OnDestroy {
   mainTitle: string = "People";
   deleteModalTitle: string = "Delete Person";
   btnAddNewCaption: string = "Add New Person";
@@ -17,6 +18,9 @@ export class PersonListComponent implements OnInit {
   deleting: boolean = false;
   selectedPerson: Person = null;
 
+  peopleChangedSubscription: Subscription;
+  personSavedSubscription: Subscription;
+
   constructor(personService: PersonService) {
     console.log('PersonListComponent constructor');
     this.personService = personService;
@@ -27,13 +31,19 @@ export class PersonListComponent implements OnInit {
     this.people = await this.personService.get();
     // console.log('PersonListComponent onInit people', this.people);
 
-    this.personService.onPeopleChangedEvent.subscribe(
+    this.peopleChangedSubscription = this.personService.onPeopleChangedEvent.subscribe(
       people => (this.people = people)
     );
 
-    this.personService.onPersonSavedEvent.subscribe(() =>
+    this.personSavedSubscription = this.personService.onPersonSavedEvent.subscribe(() =>
       this.onResetSelectedPerson()
     );
+  }
+
+  ngOnDestroy() {
+    console.log('PersonListComponent onDestroy');
+    this.peopleChangedSubscription.unsubscribe();
+    this.personSavedSubscription.unsubscribe();
   }
 
   onAddNewClick() {

@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnDestroy, OnInit } from "@angular/core";
 
 import { StudentService } from './student.service';
 import { ProfessorService } from './professor.service';
 import { Person } from '../models/person.model';
 
 @Injectable()
-export class ProfessorStudentLinkService {
+export class ProfessorStudentLinkService implements OnInit, OnDestroy {
   private _professorStudentMap: Map<number, Set<number>> = new Map<number, Set<number>>();
   private _studentProfessorMap: Map<number, Set<number>> = new Map<number, Set<number>>();
 
@@ -18,6 +18,14 @@ export class ProfessorStudentLinkService {
     this.professorService.onPeopleLoadedEvent.subscribe(this.professorsLoaded);
     this.professorService.onPersonSavedEvent.subscribe(this.professorSaved);
     this.professorService.onPersonDeletedEvent.subscribe(this.professorDeleted);
+  }
+
+  ngOnInit() {
+    console.log('Professor Student Link service onInit');
+  }
+
+  ngOnDestroy() {
+    console.log('Professor Student Link service onDestroy');
   }
 
   // Map the professor ids linked to students
