@@ -2,8 +2,7 @@ import {
   Component,
   OnInit,
   HostListener,
-  ElementRef,
-  Renderer2
+  ElementRef
 } from "@angular/core";
 
 import { MenuCollapseService } from "../../shared/services/menu-collapse.service";
@@ -16,11 +15,10 @@ import { MenuCollapseService } from "../../shared/services/menu-collapse.service
 export class HamburgerButtonComponent implements OnInit {
   constructor(
     private menuCollapseService: MenuCollapseService,
-    private elementRef: ElementRef,
-    private renderer: Renderer2
-  ) {}
+    private elementRef: ElementRef
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onClick() {
     this.menuCollapseService.toggleCollapse();
