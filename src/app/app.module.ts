@@ -24,11 +24,14 @@ import { ProfessorStudentLinkService } from './shared/services/professor-student
 import { ModalComponent } from './shared/components/modal/modal.component';
 import { BackdropComponent } from './shared/components/backdrop/backdrop.component';
 import { PersonFormComponent } from './shared/components/person/person-form/person-form.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'professors', component: ProfessorListComponent },
-  { path: 'students', component: StudentListComponent }
+  { path: 'students', component: StudentListComponent },
+  { path: 'page-not-found', component: PageNotFoundComponent },
+  { path: '**', redirectTo: 'page-not-found', pathMatch: 'full' }
 ]
 
 @NgModule({
@@ -47,7 +50,8 @@ const appRoutes: Routes = [
     StudentDetailComponent,
     ModalComponent,
     BackdropComponent,
-    PersonFormComponent
+    PersonFormComponent,
+    PageNotFoundComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, BrowserAnimationsModule,
     ToastrModule.forRoot(), RouterModule.forRoot(appRoutes)],
