@@ -15,10 +15,16 @@
         <li class="dropdown" appMenuDropDown>
           <a class="dropdown-toggle">Maintenance <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li routerLinkActive="active">
+            <li
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
               <a routerLink="/professors">Professors</a>
             </li>
-            <li routerLinkActive="active">
+            <li
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
               <a routerLink="/students">Students</a>
             </li>
           </ul>
