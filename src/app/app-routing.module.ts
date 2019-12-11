@@ -9,11 +9,20 @@ import { PageNotFoundComponent } from "./shared/components/page-not-found/page-n
 import { ProfessorStudentsViewListComponent } from "./professor/professor-view-list/professor-students-view-list/professor-students-view-list.component";
 import { StudentViewListComponent } from "./student/student-view-list/student-view-list.component";
 import { StudentProfessorsViewListComponent } from "./student/student-view-list/student-professors-view-list/student-professors-view-list.component";
+import { CanLeaveRouteService } from "./shared/services/can-leave-route.service";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
-  { path: "professors", component: ProfessorListComponent },
-  { path: "students", component: StudentListComponent },
+  {
+    path: "professors",
+    component: ProfessorListComponent,
+    canDeactivate: [CanLeaveRouteService]
+  },
+  {
+    path: "students",
+    component: StudentListComponent,
+    canDeactivate: [CanLeaveRouteService]
+  },
   {
     path: "professors/view",
     component: ProfessorViewListComponent,

@@ -22,6 +22,7 @@ export class PersonFormComponent implements OnInit {
 
   @Output() onSave = new EventEmitter<Person>();
   @Output() onCancel = new EventEmitter<null>();
+  @Output() onChangesMade = new EventEmitter<null>();
 
   @ViewChild("firstNameInput", { static: false }) firstNameInputRef: ElementRef;
   @ViewChild("lastNameInput", { static: false }) lastNameInputRef: ElementRef;
@@ -39,5 +40,9 @@ export class PersonFormComponent implements OnInit {
 
   onCancelClick() {
     this.onCancel.emit();
+  }
+
+  onChangeMade() {
+    this.onChangesMade.emit();
   }
 }

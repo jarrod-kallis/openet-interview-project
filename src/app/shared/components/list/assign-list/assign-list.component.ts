@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 import { Person } from "../../../models/person.model";
 
@@ -7,19 +7,13 @@ import { Person } from "../../../models/person.model";
   templateUrl: "./assign-list.component.html",
   styleUrls: ["./assign-list.component.css"]
 })
-export class AssignListComponent implements OnInit {
+export class AssignListComponent {
   @Input() heading: string;
   @Input() people: Set<Person>;
   @Input() readonly: boolean = false;
   @Input() activePersonId: number;
 
   @Output() onClick = new EventEmitter<Person>();
-
-  constructor() {}
-
-  ngOnInit() {
-    console.log(this.activePersonId);
-  }
 
   onPersonClick(person: Person) {
     this.onClick.emit(person);

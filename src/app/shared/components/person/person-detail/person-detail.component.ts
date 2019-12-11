@@ -19,6 +19,7 @@ export class PersonDetailComponent implements OnChanges {
   availablePeopleSet: Set<Person> = new Set<Person>();
 
   @Output() onCancelClicked: EventEmitter<null> = new EventEmitter<null>();
+  @Output() onChangesMade: EventEmitter<null> = new EventEmitter<null>();
 
   constructor(
     personService: PersonService,
@@ -89,4 +90,8 @@ export class PersonDetailComponent implements OnChanges {
         : this.availablePeopleSet.add(person);
     });
   };
+
+  onChangeMade() {
+    this.onChangesMade.emit();
+  }
 }

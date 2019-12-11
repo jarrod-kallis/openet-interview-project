@@ -7,8 +7,6 @@ import { Student } from "../student.model";
 @Component({
   selector: "app-student-list",
   templateUrl: "./student-list.component.html"
-  // templateUrl: "../../shared/components/person/person-list/person-list.component.html",
-  // styleUrls: ["../../shared/components/person/person-list/person-list.component.css"]
 })
 export class StudentListComponent extends PersonListComponent
   implements OnInit {
@@ -25,14 +23,4 @@ export class StudentListComponent extends PersonListComponent
     this.selectedPerson = new Student(0, "", "", "");
     super.onAddNewClick();
   }
-
-  // onUpdateClick(person: Student) {
-  //   this.selectedPerson = person.clone();
-  //   // new Student(
-  //   //   person.id,
-  //   //   person.firstName,
-  //   //   person.lastName
-  //   // ); // person.clone();
-  //   this.updating = true;
-  // }
 }

@@ -32,7 +32,8 @@ import { StudentFormComponent } from "./student/student-form/student-form.compon
 import { StudentViewListComponent } from "./student/student-view-list/student-view-list.component";
 import { UrlChangeService } from "./shared/services/url-change.service";
 import { StudentDetailViewComponent } from "./student/student-view-list/student-detail-view/student-detail-view.component";
-import { StudentProfessorsViewListComponent } from './student/student-view-list/student-professors-view-list/student-professors-view-list.component';
+import { StudentProfessorsViewListComponent } from "./student/student-view-list/student-professors-view-list/student-professors-view-list.component";
+import { CanLeaveRouteService } from "./shared/services/can-leave-route.service";
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { StudentProfessorsViewListComponent } from './student/student-view-list/
     ProfessorStudentLinkService,
     StudentService,
     ProfessorService,
-    UrlChangeService
+    UrlChangeService,
+    CanLeaveRouteService
   ],
   bootstrap: [AppComponent]
 })

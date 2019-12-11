@@ -1,12 +1,14 @@
 import { OnInit, OnDestroy } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Subscription, Observable } from "rxjs";
 
 import { Person } from "../../../models/person.model";
 import { PersonService } from "../../../services/person.service";
 import { Professor } from "../../../../professor/professor.model";
 import { Student } from "../../../../student/student.model";
+import { CanLeaveRouteComponentInterface } from "../../../services/can-leave-route.service";
 
-export class PersonListComponent implements OnInit, OnDestroy {
+export class PersonListComponent
+  implements OnInit, OnDestroy, CanLeaveRouteComponentInterface {
   mainTitle: string = "People";
   deleteModalTitle: string = "Delete Person";
   btnAddNewCaption: string = "Add New Person";
@@ -16,6 +18,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
   people: Person[] = [];
   updating: boolean = false;
   deleting: boolean = false;
+  changesMade: boolean = false;
   selectedPerson: Person = null;
 
   peopleChangedSubscription: Subscription;
@@ -73,6 +76,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
   onResetSelectedPerson = () => {
     this.selectedPerson = null;
     this.updating = false;
+    this.changesMade = false;
   };
 
   onCancelClick = () => {
@@ -83,11 +87,27 @@ export class PersonListComponent implements OnInit, OnDestroy {
     return this.updating;
   };
 
-  showProfessorDetail = () => {
-    return this.selectedPerson instanceof Professor && this.updating === true;
-  };
+  // showProfessorDetail = () => {
+  //   return this.selectedPerson instanceof Professor && this.updating === true;
+  // };
 
-  showStudentDetail = () => {
-    return this.selectedPerson instanceof Student && this.updating === true;
-  };
+  // showStudentDetail = () => {
+  //   return this.selectedPerson instanceof Student && this.updating === true;
+  // };
+
+  onChangeMade() {
+    this.changesMade = true;
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.updating && this.changesMade) {
+      if (confirm("Are you sure you want to discard your changes?")) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
 }
