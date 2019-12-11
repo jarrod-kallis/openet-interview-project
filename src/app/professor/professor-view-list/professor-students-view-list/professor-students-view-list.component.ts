@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { ActivatedRoute, Params, Router, Data } from "@angular/router";
 import { Subscription } from "rxjs";
 
 import { Student } from "../../../student/student.model";
@@ -19,6 +19,7 @@ export class ProfessorStudentsViewListComponent implements OnInit, OnDestroy {
   studentsSet: Set<Student> = new Set<Student>();
   selectedProfessor: Professor;
   urlParamChangeSubscription: Subscription;
+  routeDataChangeSubscription: Subscription;
 
   constructor(
     private professorService: ProfessorService,
@@ -57,16 +58,24 @@ export class ProfessorStudentsViewListComponent implements OnInit, OnDestroy {
         );
         console.log("selectedProfessor:", this.selectedProfessor);
 
-        (await this.studentService.get()).forEach((student: Student) => {
-          if (
-            this.professorStudentLinkService.professorHasStudent(
-              professorId,
-              student.id
-            )
-          ) {
-            this.studentsSet.add(student);
-          }
-        });
+        // (await this.studentService.get()).forEach((student: Student) => {
+        //   if (
+        //     this.professorStudentLinkService.professorHasStudent(
+        //       professorId,
+        //       student.id
+        //     )
+        //   ) {
+        //     this.studentsSet.add(student);
+        //   }
+        // });
+      }
+    );
+
+    // The students are now retrieve by the ProfessStudentsResolver, which basically makes sure the data is retrieved before the component is shown
+    // No jerkiness like you see in the StudentProfessorsViewList component
+    this.routeDataChangeSubscription = this.route.data.subscribe(
+      (data: Data) => {
+        this.studentsSet = data["students"];
       }
     );
   }
@@ -74,6 +83,7 @@ export class ProfessorStudentsViewListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     console.log("ProfessorStudentsViewListComponent onDestroy()");
     this.urlParamChangeSubscription.unsubscribe();
+    this.routeDataChangeSubscription.unsubscribe();
   }
 
   onPersonClick(person: Person) {
