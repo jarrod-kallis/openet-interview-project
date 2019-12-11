@@ -6,3 +6,7 @@ li {
 .no-click {
   cursor: initial;
 }
+
+.active-item {
+  background-color: var(--background-colour-light);
+}

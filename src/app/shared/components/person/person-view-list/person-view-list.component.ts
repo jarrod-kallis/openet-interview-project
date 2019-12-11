@@ -54,4 +54,8 @@ export class PersonViewListComponent implements OnInit, OnDestroy {
       relativeTo: this.route
     });
   }
+
+  getActivePersonId() {
+    return this.selectedPerson ? this.selectedPerson.id : 0;
+  }
 }

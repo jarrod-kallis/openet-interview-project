@@ -3,6 +3,7 @@
     <app-assign-list
       heading="Professors"
       [people]="peopleSet"
+      [activePersonId]="getActivePersonId()"
       (onClick)="onPersonClick($event)"
     ></app-assign-list>
   </div>
