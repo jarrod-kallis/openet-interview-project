@@ -101,11 +101,7 @@ export class PersonListComponent
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (this.updating && this.changesMade) {
-      if (confirm("Are you sure you want to discard your changes?")) {
-        return true;
-      } else {
-        return false;
-      }
+      return confirm("Are you sure you want to discard your changes?");
     } else {
       return true;
     }
