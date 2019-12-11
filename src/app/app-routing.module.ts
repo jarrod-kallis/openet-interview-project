@@ -10,6 +10,7 @@ import { ProfessorStudentsViewListComponent } from "./professor/professor-view-l
 import { StudentViewListComponent } from "./student/student-view-list/student-view-list.component";
 import { StudentProfessorsViewListComponent } from "./student/student-view-list/student-professors-view-list/student-professors-view-list.component";
 import { CanLeaveRouteService } from "./shared/services/can-leave-route.service";
+import { ErrorComponent } from "./shared/components/error/error.component";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -33,7 +34,12 @@ const appRoutes: Routes = [
     component: StudentViewListComponent,
     children: [{ path: ":id", component: StudentProfessorsViewListComponent }]
   },
-  { path: "page-not-found", component: PageNotFoundComponent },
+  // { path: "page-not-found", component: PageNotFoundComponent },
+  {
+    path: "page-not-found",
+    component: ErrorComponent,
+    data: { "error-message": "Page not found" }
+  },
   { path: "**", redirectTo: "page-not-found", pathMatch: "full" }
 ];
 

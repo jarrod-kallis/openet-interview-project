@@ -34,6 +34,7 @@ import { UrlChangeService } from "./shared/services/url-change.service";
 import { StudentDetailViewComponent } from "./student/student-view-list/student-detail-view/student-detail-view.component";
 import { StudentProfessorsViewListComponent } from "./student/student-view-list/student-professors-view-list/student-professors-view-list.component";
 import { CanLeaveRouteService } from "./shared/services/can-leave-route.service";
+import { ErrorComponent } from './shared/components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { CanLeaveRouteService } from "./shared/services/can-leave-route.service"
     StudentFormComponent,
     StudentViewListComponent,
     StudentDetailViewComponent,
-    StudentProfessorsViewListComponent
+    StudentProfessorsViewListComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
