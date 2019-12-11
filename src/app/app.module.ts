@@ -1,7 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { Routes, RouterModule } from "@angular/router";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 
@@ -25,11 +24,15 @@ import { BackdropComponent } from "./shared/components/backdrop/backdrop.compone
 import { PersonFormComponent } from "./shared/components/person/person-form/person-form.component";
 import { PageNotFoundComponent } from "./shared/components/page-not-found/page-not-found.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { ProfessorViewListComponent } from './professor/professor-view-list/professor-view-list.component';
-import { ProfessorStudentsViewListComponent } from './professor/professor-view-list/professor-students-view-list/professor-students-view-list.component';
-import { ProfessorDetailViewComponent } from './professor/professor-view-list/professor-detail-view/professor-detail-view.component';
-import { PersonTableComponent } from './shared/components/person/person-table/person-table.component';
-import { StudentFormComponent } from './student/student-form/student-form.component';
+import { ProfessorViewListComponent } from "./professor/professor-view-list/professor-view-list.component";
+import { ProfessorStudentsViewListComponent } from "./professor/professor-view-list/professor-students-view-list/professor-students-view-list.component";
+import { ProfessorDetailViewComponent } from "./professor/professor-view-list/professor-detail-view/professor-detail-view.component";
+import { PersonTableComponent } from "./shared/components/person/person-table/person-table.component";
+import { StudentFormComponent } from "./student/student-form/student-form.component";
+import { StudentViewListComponent } from "./student/student-view-list/student-view-list.component";
+import { UrlChangeService } from "./shared/services/url-change.service";
+import { StudentDetailViewComponent } from "./student/student-view-list/student-detail-view/student-detail-view.component";
+import { StudentProfessorsViewListComponent } from './student/student-view-list/student-professors-view-list/student-professors-view-list.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,10 @@ import { StudentFormComponent } from './student/student-form/student-form.compon
     ProfessorStudentsViewListComponent,
     ProfessorDetailViewComponent,
     PersonTableComponent,
-    StudentFormComponent
+    StudentFormComponent,
+    StudentViewListComponent,
+    StudentDetailViewComponent,
+    StudentProfessorsViewListComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +68,12 @@ import { StudentFormComponent } from './student/student-form/student-form.compon
     ToastrModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [ProfessorStudentLinkService, StudentService, ProfessorService],
+  providers: [
+    ProfessorStudentLinkService,
+    StudentService,
+    ProfessorService,
+    UrlChangeService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

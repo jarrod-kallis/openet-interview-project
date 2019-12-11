@@ -1,10 +1,6 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { Subscription } from "rxjs";
-import { Params, ActivatedRoute } from "@angular/router";
+import { Component, Input } from "@angular/core";
 
 import { Professor } from "../../professor.model";
-import { ProfessorService } from "../../../shared/services/professor.service";
-import { UrlChangeService } from "../../../shared/services/url-change.service";
 
 @Component({
   selector: "app-professor-detail-view",
@@ -14,8 +10,5 @@ import { UrlChangeService } from "../../../shared/services/url-change.service";
 export class ProfessorDetailViewComponent {
   @Input() selectedProfessor: Professor;
 
-  constructor(
-    private route: ActivatedRoute,
-    private urlChangeService: UrlChangeService
-  ) {}
+  constructor() {}
 }

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-5">
     <app-assign-list
-      heading="Professors"
+      heading="Students"
       [people]="peopleSet"
       (onClick)="onPersonClick($event)"
     ></app-assign-list>
@@ -10,7 +10,7 @@
     <router-outlet></router-outlet>
   </div>
 </div>
-<app-professor-detail-view
+<app-student-detail-view
   *ngIf="showPerson()"
-  [selectedProfessor]="selectedPerson"
-></app-professor-detail-view>
+  [selectedStudent]="selectedPerson"
+></app-student-detail-view>

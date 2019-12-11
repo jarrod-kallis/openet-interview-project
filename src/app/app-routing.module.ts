@@ -7,6 +7,8 @@ import { StudentListComponent } from "./student/student-list/student-list.compon
 import { ProfessorViewListComponent } from "./professor/professor-view-list/professor-view-list.component";
 import { PageNotFoundComponent } from "./shared/components/page-not-found/page-not-found.component";
 import { ProfessorStudentsViewListComponent } from "./professor/professor-view-list/professor-students-view-list/professor-students-view-list.component";
+import { StudentViewListComponent } from "./student/student-view-list/student-view-list.component";
+import { StudentProfessorsViewListComponent } from "./student/student-view-list/student-professors-view-list/student-professors-view-list.component";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -16,6 +18,11 @@ const appRoutes: Routes = [
     path: "professors/view",
     component: ProfessorViewListComponent,
     children: [{ path: ":id", component: ProfessorStudentsViewListComponent }]
+  },
+  {
+    path: "students/view",
+    component: StudentViewListComponent,
+    children: [{ path: ":id", component: StudentProfessorsViewListComponent }]
   },
   { path: "page-not-found", component: PageNotFoundComponent },
   { path: "**", redirectTo: "page-not-found", pathMatch: "full" }
