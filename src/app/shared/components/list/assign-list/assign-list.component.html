@@ -1,6 +1,10 @@
 <label>{{ heading }}</label>
 <ul class="list-group" *ngIf="people.size > 0; else nothingToDisplay">
-  <li class="list-group-item" *ngFor="let person of people" (click)="onPersonClick(person)">
+  <li
+    [class]="getListClass()"
+    *ngFor="let person of people"
+    (click)="onPersonClick(person)"
+  >
     {{ person.firstName }} {{ person.lastName }}
   </li>
 </ul>

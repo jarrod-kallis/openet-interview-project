@@ -25,6 +25,9 @@ import { BackdropComponent } from "./shared/components/backdrop/backdrop.compone
 import { PersonFormComponent } from "./shared/components/person/person-form/person-form.component";
 import { PageNotFoundComponent } from "./shared/components/page-not-found/page-not-found.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { ProfessorViewListComponent } from './professor/professor-view-list/professor-view-list.component';
+import { ProfessorStudentsViewListComponent } from './professor/professor-view-list/professor-students-view-list/professor-students-view-list.component';
+import { ProfessorDetailViewComponent } from './professor/professor-view-list/professor-detail-view/professor-detail-view.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import { AppRoutingModule } from "./app-routing.module";
     ModalComponent,
     BackdropComponent,
     PersonFormComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ProfessorViewListComponent,
+    ProfessorStudentsViewListComponent,
+    ProfessorDetailViewComponent
   ],
   imports: [
     BrowserModule,

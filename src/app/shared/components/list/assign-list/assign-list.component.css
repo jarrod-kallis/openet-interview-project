@@ -1,3 +1,8 @@
 li {
   cursor: pointer;
+  user-select: none;
+}
+
+.no-click {
+  cursor: initial;
 }

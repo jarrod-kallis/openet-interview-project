@@ -1,15 +1,24 @@
-import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  ViewChild,
+  EventEmitter,
+  ElementRef
+} from "@angular/core";
 
 import { Person } from "../../../models/person.model";
 
 @Component({
-  selector: 'app-person-form',
-  templateUrl: './person-form.component.html',
-  styleUrls: ['./person-form.component.css']
+  selector: "app-person-form",
+  templateUrl: "./person-form.component.html",
+  styleUrls: ["./person-form.component.css"]
 })
 export class PersonFormComponent implements OnInit {
   @Input() heading: string;
   @Input() person: Person;
+  @Input() readonly: boolean = false;
 
   @Output() onSave = new EventEmitter<Person>();
   @Output() onCancel = new EventEmitter<null>();
@@ -17,9 +26,9 @@ export class PersonFormComponent implements OnInit {
   @ViewChild("firstNameInput", { static: false }) firstNameInputRef: ElementRef;
   @ViewChild("lastNameInput", { static: false }) lastNameInputRef: ElementRef;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onSaveClick() {
     this.person.firstName = this.firstNameInputRef.nativeElement.value;

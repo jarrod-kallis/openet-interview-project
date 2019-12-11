@@ -10,14 +10,23 @@ import { Person } from "../../../models/person.model";
 export class AssignListComponent implements OnInit {
   @Input() heading: string;
   @Input() people: Set<Person>;
+  @Input() readonly: boolean = false;
 
   @Output() onClick = new EventEmitter<Person>();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onPersonClick(person: Person) {
     this.onClick.emit(person);
+  }
+
+  getListClass(): string {
+    let clazz: string = "list-group-item";
+
+    clazz += this.readonly ? " no-click" : "";
+
+    return clazz;
   }
 }
