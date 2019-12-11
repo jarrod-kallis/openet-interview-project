@@ -1,5 +1,5 @@
 <app-assign-list
   heading="Professors"
   [people]="professorsSet"
-  readonly="true"
+  (onClick)="onPersonClick($event)"
 ></app-assign-list>

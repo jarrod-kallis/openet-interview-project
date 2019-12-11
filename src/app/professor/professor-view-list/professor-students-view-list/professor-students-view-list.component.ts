@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
 import { Student } from "../../../student/student.model";
@@ -8,6 +8,7 @@ import { ProfessorStudentLinkService } from "../../../shared/services/professor-
 import { ProfessorService } from "../../../shared/services/professor.service";
 import { Professor } from "../../professor.model";
 import { UrlChangeService } from "../../../shared/services/url-change.service";
+import { Person } from "../../../shared/models/person.model";
 
 @Component({
   selector: "app-professor-students-view-list",
@@ -24,7 +25,8 @@ export class ProfessorStudentsViewListComponent implements OnInit, OnDestroy {
     private studentService: StudentService,
     private professorStudentLinkService: ProfessorStudentLinkService,
     private route: ActivatedRoute,
-    private urlChangeService: UrlChangeService
+    private urlChangeService: UrlChangeService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -72,5 +74,9 @@ export class ProfessorStudentsViewListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     console.log("ProfessorStudentsViewListComponent onDestroy()");
     this.urlParamChangeSubscription.unsubscribe();
+  }
+
+  onPersonClick(person: Person) {
+    this.router.navigate(["students/view", person.id]);
   }
 }
