@@ -28,6 +28,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { ProfessorViewListComponent } from './professor/professor-view-list/professor-view-list.component';
 import { ProfessorStudentsViewListComponent } from './professor/professor-view-list/professor-students-view-list/professor-students-view-list.component';
 import { ProfessorDetailViewComponent } from './professor/professor-view-list/professor-detail-view/professor-detail-view.component';
+import { PersonTableComponent } from './shared/components/person/person-table/person-table.component';
+import { StudentFormComponent } from './student/student-form/student-form.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { ProfessorDetailViewComponent } from './professor/professor-view-list/pr
     PageNotFoundComponent,
     ProfessorViewListComponent,
     ProfessorStudentsViewListComponent,
-    ProfessorDetailViewComponent
+    ProfessorDetailViewComponent,
+    PersonTableComponent,
+    StudentFormComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,35 @@
+<app-modal
+  *ngIf="deleting"
+  [title]="deleteModalTitle"
+  [btnConfirmTitle]="'Okay'"
+  (onSubmitted)="onDeleteConfirmed()"
+  (onCancelled)="onDeleteCancelled()"
+>
+  <p>
+    Are you sure you want to delete {{ selectedPerson.firstName }}
+    {{ selectedPerson.lastName }}?
+  </p>
+</app-modal>
+
+<div *ngIf="!updating">
+  <h1>{{ mainTitle }}</h1>
+
+  <app-add-button (onClicked)="onAddNewClick()">{{
+    btnAddNewCaption
+  }}</app-add-button>
+
+  <hr />
+
+  <app-person-table
+    [people]="people"
+    (onUpdateClicked)="onUpdateClick($event)"
+    (onDeleteClicked)="onDeleteClick($event)"
+  ></app-person-table>
+</div>
+
+<app-student-detail
+  *ngIf="showDetail()"
+  [person]="selectedPerson"
+  (onCancelClicked)="onCancelClick()"
+>
+</app-student-detail>

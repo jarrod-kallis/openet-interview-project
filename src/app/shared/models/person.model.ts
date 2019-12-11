@@ -25,4 +25,8 @@ export class Person extends Entity {
   set lastName(lastName: string) {
     this._lastName = lastName;
   }
+
+  public clone(): Person {
+    throw new Error("Please override Person.clone()");
+  }
 }
