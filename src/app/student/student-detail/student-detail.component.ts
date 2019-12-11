@@ -5,6 +5,7 @@ import { StudentService } from "../../shared/services/student.service";
 import { ProfessorService } from "../../shared/services/professor.service";
 import { ProfessorStudentLinkService } from "../../shared/services/professor-student-link.service";
 import { ToastrService } from "ngx-toastr";
+import { Student } from "../student.model";
 
 @Component({
   selector: "app-student-detail",
@@ -31,4 +32,15 @@ export class StudentDetailComponent extends PersonDetailComponent {
       personId
     );
   };
+
+  isValid(person: Student) {
+    let isValid: boolean = super.isValid(person);
+
+    if (!person.studentCardNumber) {
+      this.toastr.error("Please fill in a card number");
+      isValid = false;
+    }
+
+    return isValid;
+  }
 }

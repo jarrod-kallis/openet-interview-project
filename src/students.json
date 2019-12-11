@@ -3,23 +3,21 @@
     "id": 1,
     "firstName": "Jack",
     "lastName": "Smith",
+    "cardNumber": "123456",
     "professors": []
   },
   {
     "id": 2,
     "firstName": "Jill",
     "lastName": "Adams",
-    "professors": [
-      1
-    ]
+    "cardNumber": "",
+    "professors": [1]
   },
   {
     "id": 3,
     "firstName": "Ben",
     "lastName": "Paulsen",
-    "professors": [
-      1,
-      3
-    ]
+    "cardNumber": "Ben001",
+    "professors": [1, 3]
   }
 ]

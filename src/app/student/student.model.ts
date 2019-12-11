@@ -13,6 +13,7 @@ export class Student extends Person {
   ) {
     super(id, firstName, lastName);
     // this._professors = professors;
+    this._studentCardNumber = studentCardNumber;
   }
 
   // get professors() {

@@ -1,13 +1,8 @@
-import {
-  Input,
-  Output,
-  EventEmitter,
-  OnChanges
-} from "@angular/core";
+import { Input, Output, EventEmitter, OnChanges } from "@angular/core";
 
 import { Person } from "../../../models/person.model";
-import { ToastrService } from 'ngx-toastr';
-import { PersonService } from '../../../services/person.service';
+import { ToastrService } from "ngx-toastr";
+import { PersonService } from "../../../services/person.service";
 
 export class PersonDetailComponent implements OnChanges {
   formHeading: string = "Person";
@@ -25,9 +20,10 @@ export class PersonDetailComponent implements OnChanges {
 
   @Output() onCancelClicked: EventEmitter<null> = new EventEmitter<null>();
 
-  constructor(personService: PersonService,
+  constructor(
+    personService: PersonService,
     alternatePersonService: PersonService,
-    private toastr: ToastrService
+    protected toastr: ToastrService
   ) {
     this.personService = personService;
     this.alternatePersonService = alternatePersonService;
@@ -39,7 +35,7 @@ export class PersonDetailComponent implements OnChanges {
     this.setupInitialPeople();
   }
 
-  isValid = (person: Person) => {
+  isValid(person: Person) {
     let isValid: boolean = true;
 
     if (!person.firstName) {
@@ -57,9 +53,13 @@ export class PersonDetailComponent implements OnChanges {
 
   onSaveClick = (person: Person) => {
     if (this.isValid(person)) {
-      this.personService.save(person, this.availablePeopleSet, this.assignedPeopleSet);
+      this.personService.save(
+        person,
+        this.availablePeopleSet,
+        this.assignedPeopleSet
+      );
     }
-  }
+  };
 
   onCancelClick() {
     this.onCancelClicked.emit();
@@ -76,8 +76,8 @@ export class PersonDetailComponent implements OnChanges {
   }
 
   isPersonAssigned = (parentPersonId: number, personId: number): boolean => {
-    throw new Error('Please implement isPersonAssigned()');
-  }
+    throw new Error("Please implement isPersonAssigned()");
+  };
 
   setupInitialPeople = () => {
     this.assignedPeopleSet = new Set<Person>();
@@ -88,5 +88,5 @@ export class PersonDetailComponent implements OnChanges {
         ? this.assignedPeopleSet.add(person)
         : this.availablePeopleSet.add(person);
     });
-  }
+  };
 }

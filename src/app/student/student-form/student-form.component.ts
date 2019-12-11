@@ -1,26 +1,23 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { Person } from "../../shared/models/person.model";
+import { Component, ViewChild, ElementRef } from "@angular/core";
+
 import { Student } from "../student.model";
+import { PersonFormComponent } from "../../shared/components/person/person-form/person-form.component";
 
 @Component({
   selector: "app-student-form",
   templateUrl: "./student-form.component.html",
   styleUrls: ["./student-form.component.css"]
 })
-export class StudentFormComponent implements OnInit {
-  @Input() person: Person;
-  @Output() onSaveClicked = new EventEmitter<Student>();
-  @Output() onCancelClicked = new EventEmitter<null>();
+export class StudentFormComponent extends PersonFormComponent {
+  heading = "Student";
 
-  constructor() {}
+  @ViewChild("studentCardNumberInput", { static: false })
+  studentCardNumberInputRef: ElementRef;
 
-  ngOnInit() {}
+  onSaveClick() {
+    (this
+      .person as Student).studentCardNumber = this.studentCardNumberInputRef.nativeElement.value;
 
-  onSaveClick(student: Student) {
-    this.onSaveClicked.emit(student);
-  }
-
-  onCancelClick() {
-    this.onCancelClicked.emit();
+    super.onSaveClick();
   }
 }
