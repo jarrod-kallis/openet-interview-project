@@ -28,4 +28,24 @@ export class StudentService extends PersonService {
 
     return transformedJsonData;
   };
+
+  studentCardAlreadyInUse(
+    studentId: number,
+    studentCardNumber: string
+  ): Promise<boolean> {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        const studentsFound: Person[] = this.people.filter(
+          (person: Student) => {
+            return person.studentCardNumber === studentCardNumber &&
+              studentId !== person.id &&
+              studentCardNumber !== ""
+              ? person
+              : null;
+          }
+        );
+        resolve(studentsFound.length > 0 ? true : false);
+      }, 1500);
+    });
+  }
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 
@@ -34,7 +34,7 @@ import { UrlChangeService } from "./shared/services/url-change.service";
 import { StudentDetailViewComponent } from "./student/student-view-list/student-detail-view/student-detail-view.component";
 import { StudentProfessorsViewListComponent } from "./student/student-view-list/student-professors-view-list/student-professors-view-list.component";
 import { CanLeaveRouteService } from "./shared/services/can-leave-route.service";
-import { ErrorComponent } from './shared/components/error/error.component';
+import { ErrorComponent } from "./shared/components/error/error.component";
 
 @NgModule({
   declarations: [
@@ -69,7 +69,8 @@ import { ErrorComponent } from './shared/components/error/error.component';
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [
     ProfessorStudentLinkService,

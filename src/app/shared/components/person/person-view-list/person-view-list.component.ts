@@ -41,6 +41,8 @@ export class PersonViewListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    console.log("PersonViewListComponent onDestroy");
+
     this.urlParamsChangedSubscription.unsubscribe();
   }
 

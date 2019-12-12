@@ -5,16 +5,12 @@ import { Person } from "../models/person.model";
 // import { PersonService as PersonServiceInterface } from './interfaces/person.service.js';
 
 export class PersonService {
-  onPeopleLoadedEvent: EventEmitter<
+  onPeopleLoadedEvent = new EventEmitter<
     [{ id: number; peopleIds: number[] }]
-  > = new EventEmitter<[{ id: number; peopleIds: number[] }]>();
+  >();
   // onPeopleChangedEvent: EventEmitter<Person[]> = new EventEmitter<Person[]>();
   onPeopleChangedEvent = new Subject<Person[]>();
-  onPersonSavedEvent: EventEmitter<{
-    person: Person;
-    availablePeople: Set<Person>;
-    assignedPeople: Set<Person>;
-  }> = new EventEmitter<{
+  onPersonSavedEvent = new EventEmitter<{
     person: Person;
     availablePeople: Set<Person>;
     assignedPeople: Set<Person>;
