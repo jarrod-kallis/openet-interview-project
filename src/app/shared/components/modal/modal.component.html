@@ -6,8 +6,16 @@
     <ng-content></ng-content>
   </section>
   <footer class="footer">
-    <button *ngIf="btnConfirmTitle" class="btn" (click)="onSubmitClick()">{{ btnConfirmTitle }}</button>
-    <button class="btn" (click)="onCancelClick()">{{ btnCancelTitle }}</button>
+    <button
+      *ngIf="btnConfirmTitle"
+      class="btn btn-default"
+      (click)="onSubmitClick()"
+    >
+      {{ btnConfirmTitle }}
+    </button>
+    <button class="btn btn-default" (click)="onCancelClick()">
+      {{ btnCancelTitle }}
+    </button>
   </footer>
 </div>
 <app-backdrop (onClicked)="onCancelClick()"></app-backdrop>
