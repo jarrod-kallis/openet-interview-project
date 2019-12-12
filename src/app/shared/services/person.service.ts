@@ -40,6 +40,7 @@ export class PersonService {
   };
 
   load = (): void => {
+    console.log("PersonService load");
     this.getJsonData();
 
     for (let data of this.jsonData) {

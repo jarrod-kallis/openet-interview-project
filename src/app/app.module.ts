@@ -36,9 +36,11 @@ import { StudentProfessorsViewListComponent } from "./student/student-view-list/
 import { CanLeaveRouteService } from "./shared/services/can-leave-route.service";
 import { ErrorComponent } from "./shared/components/error/error.component";
 import { ShortenPipe } from "./shared/pipes/shorten.pipe";
+import { RandomNumberService } from "./shared/services/random-number.service";
 
 @NgModule({
   declarations: [
+    // Only @Pipe, @Directive or @Component annotated classes
     AppComponent,
     HeaderComponent,
     HomeComponent,
@@ -67,6 +69,7 @@ import { ShortenPipe } from "./shared/pipes/shorten.pipe";
     ShortenPipe
   ],
   imports: [
+    // Only @NgModule annotated classes
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -79,7 +82,8 @@ import { ShortenPipe } from "./shared/pipes/shorten.pipe";
     StudentService,
     ProfessorService,
     UrlChangeService,
-    CanLeaveRouteService
+    CanLeaveRouteService,
+    RandomNumberService // Every component receives the same instance of this service
   ],
   bootstrap: [AppComponent]
 })
