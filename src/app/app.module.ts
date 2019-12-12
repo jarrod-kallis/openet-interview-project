@@ -37,6 +37,7 @@ import { CanLeaveRouteService } from "./shared/services/can-leave-route.service"
 import { ErrorComponent } from "./shared/components/error/error.component";
 import { ShortenPipe } from "./shared/pipes/shorten.pipe";
 import { RandomNumberService } from "./shared/services/random-number.service";
+import { MyIfDirective } from "./shared/directives/my-if.directive";
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { RandomNumberService } from "./shared/services/random-number.service";
     StudentDetailViewComponent,
     StudentProfessorsViewListComponent,
     ErrorComponent,
-    ShortenPipe
+    ShortenPipe,
+    MyIfDirective
   ],
   imports: [
     // Only @NgModule annotated classes

@@ -1,4 +1,14 @@
 <label>{{ heading | uppercase }}</label>
+<!-- <ul class="list-group" *appMyIf="people.size > 0; else nothingToDisplay">
+  <li
+    [class]="getListClass(person)"
+    *ngFor="let person of people"
+    (click)="onPersonClick(person)"
+  >
+    {{ person.firstName | shorten: 10:false }}
+    {{ person.lastName | shorten: 10:true }}
+  </li>
+</ul> -->
 <ul class="list-group" *ngIf="people.size > 0; else nothingToDisplay">
   <li
     [class]="getListClass(person)"
