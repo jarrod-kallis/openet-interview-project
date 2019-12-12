@@ -1,11 +1,13 @@
-<label>{{ heading }}</label>
+<label>{{ heading | uppercase }}</label>
 <ul class="list-group" *ngIf="people.size > 0; else nothingToDisplay">
   <li
     [class]="getListClass(person)"
     *ngFor="let person of people"
     (click)="onPersonClick(person)"
   >
-    {{ person.firstName }} {{ person.lastName }}
+    <!-- {{ getPersonName(person) | shorten: 20:true }} -->
+    {{ person.firstName | shorten: 10:false }}
+    {{ person.lastName | shorten: 10:true }}
   </li>
 </ul>
 <!-- Template to show 'nothing to display' in the list-->

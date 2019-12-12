@@ -35,6 +35,7 @@ import { StudentDetailViewComponent } from "./student/student-view-list/student-
 import { StudentProfessorsViewListComponent } from "./student/student-view-list/student-professors-view-list/student-professors-view-list.component";
 import { CanLeaveRouteService } from "./shared/services/can-leave-route.service";
 import { ErrorComponent } from "./shared/components/error/error.component";
+import { ShortenPipe } from "./shared/pipes/shorten.pipe";
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { ErrorComponent } from "./shared/components/error/error.component";
     StudentViewListComponent,
     StudentDetailViewComponent,
     StudentProfessorsViewListComponent,
-    ErrorComponent
+    ErrorComponent,
+    ShortenPipe
   ],
   imports: [
     BrowserModule,

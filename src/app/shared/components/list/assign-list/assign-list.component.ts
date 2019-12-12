@@ -19,6 +19,10 @@ export class AssignListComponent {
     this.onClick.emit(person);
   }
 
+  getPersonName(person: Person) {
+    return `${person.firstName} ${person.lastName}`;
+  }
+
   getListClass(person: Person): string {
     let clazz: string = "list-group-item";
 
