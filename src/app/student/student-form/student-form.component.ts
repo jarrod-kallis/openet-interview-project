@@ -96,4 +96,31 @@ export class StudentFormComponent extends PersonFormComponent
         }
       });
   };
+
+  isFirstNameValid(): boolean {
+    return !this.getFormControl('firstName').valid &&
+      this.getFormControl('firstName').touched;
+  }
+
+  isLastNameValid(): boolean {
+    return !this.getFormControl('lastName').valid &&
+      this.getFormControl('lastName').touched;
+  }
+
+  isStudentCardNumberBeingChecked(): boolean {
+    return this.getFormControl('studentCardNumber').value.length > 0 &&
+      this.getFormControl('studentCardNumber').pending &&
+      this.getFormControl('studentCardNumber').touched;
+  }
+
+  isStudentCardNumberInUse(): boolean {
+    return this.getFormControl('studentCardNumber').errors &&
+      this.getFormControl('studentCardNumber').errors['cardInUse'];
+  }
+
+  isStudentCardNumberEmpty(): boolean {
+    return this.getFormControl('studentCardNumber').value.length === 0 &&
+      !this.getFormControl('studentCardNumber').valid &&
+      this.getFormControl('studentCardNumber').touched;
+  }
 }

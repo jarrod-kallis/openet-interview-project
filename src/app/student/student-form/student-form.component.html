@@ -2,20 +2,14 @@
 <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
   <div class="row">
     <app-form-item [formGroup]="personForm" label="First Name" inputName="firstName" (onChangesMade)="onChangeMade()">
-      <p class="help-block" *ngIf="
-          !getFormControl('firstName').valid &&
-          getFormControl('firstName').touched
-        ">
+      <p class="help-block" *ngIf="isFirstNameValid()">
         Please enter a first name
       </p>
     </app-form-item>
   </div>
   <div class="row">
     <app-form-item [formGroup]="personForm" label="Last Name" inputName="lastName" (onChangesMade)="onChangeMade()">
-      <p class="help-block" *ngIf="
-          !getFormControl('lastName').valid &&
-          getFormControl('lastName').touched
-        ">
+      <p class="help-block" *ngIf="isLastNameValid()">
         Please enter a last name
       </p>
     </app-form-item>
@@ -24,18 +18,14 @@
     <app-form-item [formGroup]="personForm" label="Card Number" inputName="studentCardNumber"
       (onChangesMade)="onChangeMade()">
       <div>
-        <p class="help-block" *ngIf="
-                getFormControl('studentCardNumber').value.length > 0 &&
-                getFormControl('studentCardNumber').pending &&
-                getFormControl('studentCardNumber').touched
-              ">
+        <p class="help-block" *ngIf="isStudentCardNumberBeingChecked()">
           Checking card
         </p>
-        <p class="help-block" *ngIf="
-                getFormControl('studentCardNumber').errors &&
-                getFormControl('studentCardNumber').errors['cardInUse']
-              ">
+        <p class="help-block" *ngIf="isStudentCardNumberInUse()">
           This card is already in use
+        </p>
+        <p class="help-block" *ngIf="isStudentCardNumberEmpty()">
+          Please enter a card number
         </p>
       </div>
     </app-form-item>

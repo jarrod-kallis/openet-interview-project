@@ -1,5 +1,5 @@
 <div [ngClass]="getClass()" [formGroup]="formGroup">
-  <label for="inputId">{{label}}</label>
+  <label for="inputId">{{ label }}</label>
   <input [type]="inputType" id="inputId" [name]="inputName" class="form-control" (change)="onChangeMade()"
     [formControlName]="inputName" />
   <ng-content></ng-content>
