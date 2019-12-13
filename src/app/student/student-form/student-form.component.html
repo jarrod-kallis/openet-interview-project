@@ -1,88 +1,48 @@
 <h3>{{ heading }}</h3>
 <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
   <div class="row">
-    <div class="col-sm-10 form-group">
-      <label for="firstName">First Name</label>
-      <input
-        type="text"
-        id="firstName"
-        name="firstName"
-        class="form-control"
-        (change)="onChangeMade()"
-        formControlName="firstName"
-      />
-      <p
-        class="help-block"
-        *ngIf="
+    <app-form-item [formGroup]="personForm" label="First Name" inputName="firstName" (onChangesMade)="onChangeMade()">
+      <p class="help-block" *ngIf="
           !getFormControl('firstName').valid &&
           getFormControl('firstName').touched
-        "
-      >
+        ">
         Please enter a first name
       </p>
-    </div>
+    </app-form-item>
   </div>
   <div class="row">
-    <div class="col-sm-10 form-group">
-      <label for="lastName">Last Name</label>
-      <input
-        type="text"
-        id="lastName"
-        name="lastName"
-        class="form-control"
-        (change)="onChangeMade()"
-        formControlName="lastName"
-      />
-      <p
-        class="help-block"
-        *ngIf="
+    <app-form-item [formGroup]="personForm" label="Last Name" inputName="lastName" (onChangesMade)="onChangeMade()">
+      <p class="help-block" *ngIf="
           !getFormControl('lastName').valid &&
           getFormControl('lastName').touched
-        "
-      >
+        ">
         Please enter a last name
       </p>
-    </div>
+    </app-form-item>
   </div>
   <div class="row">
-    <div class="col-sm-10 form-group">
-      <label for="studentCardNumber">Card Number</label>
-      <input
-        type="text"
-        id="studentCardNumber"
-        name="studentCardNumber"
-        class="form-control"
-        (change)="onChangeMade()"
-        formControlName="studentCardNumber"
-      />
-      <p
-        class="help-block"
-        *ngIf="
-          getFormControl('studentCardNumber').value.length > 0 &&
-          getFormControl('studentCardNumber').pending &&
-          getFormControl('studentCardNumber').touched
-        "
-      >
-        Checking card
-      </p>
-      <p
-        class="help-block"
-        *ngIf="
-          getFormControl('studentCardNumber').errors &&
-          getFormControl('studentCardNumber').errors['cardInUse']
-        "
-      >
-        This card is already in use
-      </p>
-    </div>
+    <app-form-item [formGroup]="personForm" label="Card Number" inputName="studentCardNumber"
+      (onChangesMade)="onChangeMade()">
+      <div>
+        <p class="help-block" *ngIf="
+                getFormControl('studentCardNumber').value.length > 0 &&
+                getFormControl('studentCardNumber').pending &&
+                getFormControl('studentCardNumber').touched
+              ">
+          Checking card
+        </p>
+        <p class="help-block" *ngIf="
+                getFormControl('studentCardNumber').errors &&
+                getFormControl('studentCardNumber').errors['cardInUse']
+              ">
+          This card is already in use
+        </p>
+      </div>
+    </app-form-item>
   </div>
   <div class="row" [class]="readonly ? 'invisible' : ''">
     <div class="col-xs-12 btn-toolbar">
-      <button
-        class="btn btn-success"
-        type="submit"
-        [disabled]="!personForm.valid"
-      >
+      <button class="btn btn-success" type="submit" [disabled]="!personForm.valid">
         Save
       </button>
       <button class="btn btn-warning" type="button" (click)="onCancelClick()">

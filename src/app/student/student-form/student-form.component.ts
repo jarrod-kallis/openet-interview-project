@@ -87,8 +87,7 @@ export class StudentFormComponent extends PersonFormComponent
   ):
     | Promise<{ [s: string]: boolean }>
     | Observable<{ [s: string]: boolean }> => {
-    return this.studentService
-      .studentCardAlreadyInUse(this.person.id, formControl.value)
+    return this.studentService.studentCardAlreadyInUse(this.person.id, formControl.value)
       .then(invalid => {
         if (invalid) {
           return { cardInUse: true };

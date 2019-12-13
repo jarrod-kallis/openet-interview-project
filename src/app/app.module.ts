@@ -38,6 +38,7 @@ import { ErrorComponent } from "./shared/components/error/error.component";
 import { ShortenPipe } from "./shared/pipes/shorten.pipe";
 import { RandomNumberService } from "./shared/services/random-number.service";
 import { MyIfDirective } from "./shared/directives/my-if.directive";
+import { FormItemComponent } from './shared/components/form-item/form-item.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { MyIfDirective } from "./shared/directives/my-if.directive";
     StudentProfessorsViewListComponent,
     ErrorComponent,
     ShortenPipe,
-    MyIfDirective
+    MyIfDirective,
+    FormItemComponent
   ],
   imports: [
     // Only @NgModule annotated classes
@@ -90,5 +92,5 @@ import { MyIfDirective } from "./shared/directives/my-if.directive";
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(professorStudentService: ProfessorStudentLinkService) {}
+  constructor(professorStudentService: ProfessorStudentLinkService) { }
 }
