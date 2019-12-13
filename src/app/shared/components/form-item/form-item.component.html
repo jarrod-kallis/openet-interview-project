@@ -1,6 +1,12 @@
 <div [ngClass]="getClass()" [formGroup]="formGroup">
-  <label for="inputId">{{ label }}</label>
-  <input [type]="inputType" id="inputId" [name]="inputName" class="form-control" (change)="onChangeMade()"
-    [formControlName]="inputName" />
+  <label [for]="getInputId()">{{ label }}</label>
+  <input
+    [type]="inputType"
+    [id]="getInputId()"
+    [name]="inputName"
+    class="form-control"
+    (change)="onChangeMade()"
+    [formControlName]="inputName"
+  />
   <ng-content></ng-content>
 </div>
