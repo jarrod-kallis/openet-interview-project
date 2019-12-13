@@ -33,10 +33,6 @@ export class StudentFormComponent extends PersonFormComponent
   ngOnInit() {
     console.log("StudentFormComponent onInit");
     // Can't set up the FormGroup on Init, because the students view screen only changes the data and doesn't re-initialise the form
-  }
-
-  ngOnChanges() {
-    console.log("StudentFormComponent onChanges");
     this.personForm = new FormGroup({
       firstName: new FormControl(
         { value: this.person.firstName, disabled: this.readonly },
@@ -55,6 +51,17 @@ export class StudentFormComponent extends PersonFormComponent
         this.invalidStudentCardNumber
       )
     });
+  }
+
+  ngOnChanges() {
+    console.log("StudentFormComponent onChanges");
+    if (this.personForm) {
+      this.personForm.patchValue({
+        firstName: this.person.firstName,
+        lastName: this.person.lastName,
+        studentCardNumber: (this.person as Student).studentCardNumber
+      });
+    }
   }
 
   getFormControl(name: string) {
@@ -87,7 +94,8 @@ export class StudentFormComponent extends PersonFormComponent
   ):
     | Promise<{ [s: string]: boolean }>
     | Observable<{ [s: string]: boolean }> => {
-    return this.studentService.studentCardAlreadyInUse(this.person.id, formControl.value)
+    return this.studentService
+      .studentCardAlreadyInUse(this.person.id, formControl.value)
       .then(invalid => {
         if (invalid) {
           return { cardInUse: true };
@@ -98,29 +106,39 @@ export class StudentFormComponent extends PersonFormComponent
   };
 
   isFirstNameValid(): boolean {
-    return !this.getFormControl('firstName').valid &&
-      this.getFormControl('firstName').touched;
+    return (
+      !this.getFormControl("firstName").valid &&
+      this.getFormControl("firstName").touched
+    );
   }
 
   isLastNameValid(): boolean {
-    return !this.getFormControl('lastName').valid &&
-      this.getFormControl('lastName').touched;
+    return (
+      !this.getFormControl("lastName").valid &&
+      this.getFormControl("lastName").touched
+    );
   }
 
   isStudentCardNumberBeingChecked(): boolean {
-    return this.getFormControl('studentCardNumber').value.length > 0 &&
-      this.getFormControl('studentCardNumber').pending &&
-      this.getFormControl('studentCardNumber').touched;
+    return (
+      this.getFormControl("studentCardNumber").value.length > 0 &&
+      this.getFormControl("studentCardNumber").pending &&
+      this.getFormControl("studentCardNumber").touched
+    );
   }
 
   isStudentCardNumberInUse(): boolean {
-    return this.getFormControl('studentCardNumber').errors &&
-      this.getFormControl('studentCardNumber').errors['cardInUse'];
+    return (
+      this.getFormControl("studentCardNumber").errors &&
+      this.getFormControl("studentCardNumber").errors["cardInUse"]
+    );
   }
 
   isStudentCardNumberEmpty(): boolean {
-    return this.getFormControl('studentCardNumber').value.length === 0 &&
-      !this.getFormControl('studentCardNumber').valid &&
-      this.getFormControl('studentCardNumber').touched;
+    return (
+      this.getFormControl("studentCardNumber").value.length === 0 &&
+      !this.getFormControl("studentCardNumber").valid &&
+      this.getFormControl("studentCardNumber").touched
+    );
   }
 }
