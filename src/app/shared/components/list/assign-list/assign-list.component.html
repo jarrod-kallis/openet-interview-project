@@ -10,11 +10,7 @@
   </li>
 </ul> -->
 <ul class="list-group" *ngIf="people.size > 0; else nothingToDisplay">
-  <li
-    [class]="getListClass(person)"
-    *ngFor="let person of people"
-    (click)="onPersonClick(person)"
-  >
+  <li [class]="getListClass(person)" *ngFor="let person of people" (click)="onPersonClick(person)">
     <!-- {{ getPersonName(person) | shorten: 20:true }} -->
     {{ person.firstName | shorten: 10:false }}
     {{ person.lastName | shorten: 10:true }}

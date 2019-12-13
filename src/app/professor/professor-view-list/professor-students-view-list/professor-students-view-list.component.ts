@@ -17,7 +17,7 @@ import { Person } from "../../../shared/models/person.model";
 })
 export class ProfessorStudentsViewListComponent implements OnInit, OnDestroy {
   studentsSet: Set<Student> = new Set<Student>();
-  selectedProfessor: Professor;
+  // selectedProfessor: Professor;
   urlParamChangeSubscription: Subscription;
   routeDataChangeSubscription: Subscription;
 
@@ -28,7 +28,7 @@ export class ProfessorStudentsViewListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private urlChangeService: UrlChangeService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     console.log("ProfessorStudentsViewListComponent onInit()");
@@ -53,10 +53,10 @@ export class ProfessorStudentsViewListComponent implements OnInit, OnDestroy {
         professorId = +params["id"];
         this.studentsSet.clear();
 
-        this.selectedProfessor = ((await this.professorService.get()) as Professor[]).find(
-          professor => (professor.id === professorId ? professor : null)
-        );
-        console.log("selectedProfessor:", this.selectedProfessor);
+        // this.selectedProfessor = ((await this.professorService.get()) as Professor[]).find(
+        //   professor => (professor.id === professorId ? professor : null)
+        // );
+        // console.log("selectedProfessor:", this.selectedProfessor);
 
         // (await this.studentService.get()).forEach((student: Student) => {
         //   if (

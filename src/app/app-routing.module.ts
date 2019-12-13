@@ -18,12 +18,12 @@ const appRoutes: Routes = [
   {
     path: "professors",
     component: ProfessorListComponent,
-    canDeactivate: [CanLeaveRouteService]
+    canDeactivate: [CanLeaveRouteService],
   },
   {
     path: "students",
     component: StudentListComponent,
-    canDeactivate: [CanLeaveRouteService]
+    canDeactivate: [CanLeaveRouteService],
   },
   {
     path: "professors/view",
@@ -57,4 +57,4 @@ const appRoutes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

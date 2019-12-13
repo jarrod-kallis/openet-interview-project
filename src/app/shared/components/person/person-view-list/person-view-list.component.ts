@@ -10,7 +10,6 @@ export class PersonViewListComponent implements OnInit, OnDestroy {
   people: Person[];
   peopleSet: Set<Person> = new Set<Person>();
   selectedPerson: Person;
-  paramId: number;
 
   urlParamsChangedSubscription: Subscription;
 
@@ -19,24 +18,31 @@ export class PersonViewListComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private urlChangeService: UrlChangeService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     console.log("PersonViewListComponent onInit");
+    let paramId: number;
 
     this.urlParamsChangedSubscription = this.urlChangeService.onParamsChangedEvent.subscribe(
       (params: Params) => {
-        this.paramId = +params["id"];
+        console.log("PersonViewListComponent urlChanged");
+        // This is only necessary to catch a page refresh (eg. F5)
+        // This component doesn't have access to the :id url param, because its route is on {person}/view
+        // It gets the param from the relevant ViewListComponent which fires the urlChanged event
+        paramId = +params["id"];
       }
     );
 
+    // Only get the people when the component first loads
     this.people = await this.personService.get();
     this.people.forEach((person: Person) => {
       this.peopleSet.add(person);
     });
 
+    // Get the initially selected person (ie. read the url from a refresh)
     this.selectedPerson = this.people.find(person =>
-      person.id === this.paramId ? person : null
+      person.id === paramId ? person : null
     );
   }
 
